@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { changePorcentage, createMeta, deleteMeta, getMetas , Meta, MetasChanges} from "../model/metas";
+import { changeManyPorcentage , createMeta, deleteMeta, getMetas , Meta, MetasChanges, updateMeta} from "../model/metas";
 import { z } from "zod";
 
 const app = Router()
@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 })
 app.post("/", (req, res) => {
   const check  = Meta.safeParse(req.body); 
-  if(!check.success){
+  if("error" in check){
     console.log(check.error.errors);
     return res.status(400).send(check.error.errors); 
   }
@@ -20,24 +20,38 @@ app.post("/", (req, res) => {
 const MetasChangesSchema = z.array(MetasChanges).nonempty()
 app.post("/change-porcentajes", (req, res) => {
   const check = MetasChangesSchema.safeParse(req.body)
-  if(!check.success){
+  if("error" in check){
     return res.status(400).send({error: check.error.errors})
   }
-  const newValues = changePorcentage(req.body); 
-  if(newValues === null){
-    return res.status(400).send({error: "there was an error in the payload"})
+  try {
+    const newValues = changeManyPorcentage(req.body); 
+    res.status(200).send(newValues); 
+  } catch (error) {
+    res.status(404).send({error}); 
   }
-  return res.status(200).send(newValues);
 })
 app.delete("/", (req, res) =>{
-  const { id }: {id:string} = req.body
+  const { id } : {id:string} = req.body
   if(!id){
     return res.status(400).send({error: "no id was send as payload"})
   }
-  const isDeleted = deleteMeta(id) 
-  if(isDeleted === null){
-    return res.status(404).send({error: "current delete meta, check the id"})
+  try {
+    deleteMeta(id) 
+    res.sendStatus(200); 
+  } catch (error) {
+    return res.status(404).send({error})
   }
 })
-
+app.put("/update-meta", (req, res ) =>{
+  const check = Meta.safeParse(req.body); 
+  if("error" in check){
+    res.status(400).send({error: check.error.errors}); 
+  }
+  try {
+    const updatedMeta = updateMeta(req.body); 
+    res.status(200).send(updatedMeta);
+  } catch (error) {
+    res.status(404).send({error})
+  }
+})
 export default app
