@@ -1,6 +1,7 @@
 import express from "express";
 import ingresos_fijos from "./routes/ingresos_fijos"
 import metas from "./routes/metas"
+import gastos from "./routes/gastos"
 import cors from "cors"
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,7 +17,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/ingresos-fijos", ingresos_fijos); 
-app.use("/metas", metas)
+app.use("/metas", metas); 
+app.use("/gastos", gastos); 
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
