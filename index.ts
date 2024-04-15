@@ -1,5 +1,5 @@
 import express from "express";
-import presupuesto_mensual from "./routes/presupuesto_mensual"
+import ingresos_fijos from "./routes/ingresos_fijos"
 import metas from "./routes/metas"
 import cors from "cors"
 const app = express();
@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   res.status(200).send("conection made");
 });
 
-app.use("/presupuesto_mensual", presupuesto_mensual)
+app.use("/ingresos-fijos", ingresos_fijos); 
 app.use("/metas", metas)
 
 app.listen(port, () => {
