@@ -11,7 +11,7 @@ const IngresosFijos = z.object({
   estado: z.number(), 
 })
 export type IngresosFijos = z.infer<typeof IngresosFijos>
-interface FormatIngresosFijos extends IngresosFijos {
+export interface FormatIngresosFijos extends IngresosFijos {
   id ?: number, 
   format_date: string
 }
