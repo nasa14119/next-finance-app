@@ -1,5 +1,6 @@
 import { db } from "../db"
 import { Gasto } from "../routes/gastos";
+import { getMonth } from "../utils";
 
 export const getGastos = () : Gasto[] =>{
   const res = db.query("SELECT * FROM gastos"); 
@@ -111,3 +112,13 @@ export const deleteGasto = (id: string) => {
   query.run({$id: id})
   return getGastos(); 
 } 
+
+export const sumGastosMes = () : number => {
+  const $mes_actual = getMonth(); 
+  const getGastos = db.prepare(`
+    SELECT SUM(valor) FROM gastos
+    WHERE mes = $mes_actual
+  `)
+  const {"SUM(valor)": value} = getGastos.get($mes_actual) as { "SUM(valor)": number};
+  return value
+}
