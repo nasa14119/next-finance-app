@@ -10,6 +10,12 @@ export default function Home() {
           <h1 className="text-xl text-center">Finanzas App</h1>
         </header>
         <main className=" bg-primary/20 p-2 rounded-[0.5rem] relative flex flex-col justify-end md:flex-row md:items-end md:justify-between">
+          <header className="absolute top-2 right-4 left-4 grid grid-cols-2 text-[12px] lg:text-sm text-center gap-y-2 xl:w-1/2 xl:left-auto">
+            <div>Ultimo Pago 00/00/0000</div>
+            <div>Siguiente Pago 00/00/0000</div>
+            <div>Dias Faltantes</div>
+            <div>00</div>
+          </header>
           <GraficoCircular total={1800} value={1300}/> 
           <AddIngresoBtn/>
           <AddGastoBtn /> 
