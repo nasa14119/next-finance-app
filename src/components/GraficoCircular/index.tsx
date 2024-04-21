@@ -1,9 +1,9 @@
 import "./styles.css"
 
-import React from "react"
+import React, {useEffect, useState} from "react"
 import { useData } from "./useData";
 export function GraficoCircular() {
-  const data = useData()
+  const data = useData(); 
   const porcentage = data.total > 0 ? (data.value*100) / data.total: 0
   return (
     <div className="graficoCirlarContainer">
