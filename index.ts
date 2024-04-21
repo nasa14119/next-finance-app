@@ -2,6 +2,7 @@ import express from "express";
 import ingresos_fijos from "./routes/ingresos_fijos"
 import metas from "./routes/metas"
 import gastos from "./routes/gastos"
+import ingresoData from "./routes/ingresos"
 import cors from "cors"
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/ingresos-fijos", ingresos_fijos); 
+app.use("/ingreso", ingresoData); 
 app.use("/metas", metas); 
 app.use("/gastos", gastos); 
 
