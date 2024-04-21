@@ -4,7 +4,7 @@
   --secundary-opacity: #ffffff20
 }
 .graficoCirlarContainer{
-  @apply absolute z-10 sm:max-w-[380px] xl:max-w-[350px]; 
+  @apply absolute -z-40 sm:max-w-[380px] xl:max-w-[350px]; 
   transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
