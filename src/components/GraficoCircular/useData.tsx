@@ -1,10 +1,5 @@
-import { useEffect, useState } from "react"
-import { getData } from "src/app/actions";
+import { useIngresosFijosData } from "src/context/app";
 export const useData = () => { 
-  const [ info , setState] = useState<{total:number, value:number}>({total: 0, value: 0});
-  useEffect(() => {
-    const data = getData(); 
-    data.then((v) => setState(v))
-  },[])
-  return info
+  const serverData = useIngresosFijosData()
+  return serverData === null ? {total:0, value: 0} : {total: serverData.valor, value: serverData.estado}
 } 
