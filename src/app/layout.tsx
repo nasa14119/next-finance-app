@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { AppContext } from "src/context/app";
 
 const popins = Poppins({
   weight: "400",
@@ -32,7 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={popins.className}>{children}</body>
+      <body className={popins.className}>
+        <AppContext>
+          {children}
+        </AppContext>
+      </body>
     </html>
   );
 }
