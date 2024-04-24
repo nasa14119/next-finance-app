@@ -10,9 +10,7 @@ export const getIngresos = async () =>{
   })
   return await res.json()
 }
-const reducerIngresos = (state: any)=> {
-  return state
-}
+
 export const useIngresosFijos = () => {
   const [ingresos_fijos, setIngresosFijos] = useState<null | ResponseIngreso>(null); 
   useEffect(() =>{
