@@ -10,7 +10,7 @@ type Props = {
 export const Context = createContext<ContextApp | null>(null); 
 export function AppContext({children}: Props){
   const [ingresos_fijos, setIngresos] = useIngresosFijos(); 
-  const [ahorro] = useAhorro()
+  const ahorro = useAhorro()
   const [gastos] = useGastos(); 
   const VALUES: ContextApp = {
     ingresos_fijos, 
@@ -29,7 +29,12 @@ export const useIngresosFijosData = () => {
 export const useAhorroData = () => {
   const contextData = useContext(Context);
   if(contextData === null) return null
-  return contextData.ahorro
+  return contextData.ahorro[0]
+}
+export const useAhorroMethods = () => {
+  const contextData = useContext(Context);
+  if(contextData === null) return null
+  return contextData.ahorro[1]
 }
 export const useGastosData = () => {
   const contextData = useContext(Context);

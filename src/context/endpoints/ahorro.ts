@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { AhorroData } from "../types";
+import { AhorroData, AhorroNewValue, AhorroMethods as MutationsFuctions } from "../types";
 
 const getAhorros = async () => {
-  console.log();
   const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/ingreso`, {
     headers: {
       "Content-Type": "application/json"
@@ -12,7 +11,19 @@ const getAhorros = async () => {
   return await res.json()
 }
 export const useAhorro = () => {
-  const [state, setState] = useState(null); 
+  const [state, setState] = useState<null | AhorroData[]>(null); 
+  const Mutations: MutationsFuctions = {
+    pushNewValue : (value: AhorroNewValue ) => {
+      setState(prev => {
+        if(prev === null) return null
+        return [...prev, value] as AhorroData[]
+      })
+      const getData = getAhorros()
+      getData.then(v => {
+        setState(v)
+      })
+    }
+  }
   useEffect(() =>{
     const goToServer = async () => {
       const res = await getAhorros(); 
@@ -20,5 +31,5 @@ export const useAhorro = () => {
     }
     goToServer(); 
   }, [])
-  return [state] as [AhorroData[] | null]
+  return [state, Mutations] as [AhorroData[] | null, MutationsFuctions]
 }
