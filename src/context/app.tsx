@@ -3,6 +3,7 @@ import { ReactNode, createContext, useContext, useEffect, useReducer, useState }
 import { ContextApp} from "./types";
 import {  useIngresosFijos } from "./endpoints/ingresos-fijos";
 import { useAhorro } from "./endpoints/ahorro";
+import { useGastos } from "./endpoints/gastos";
 type Props = {
   children: ReactNode, 
 }
@@ -10,7 +11,13 @@ export const Context = createContext<ContextApp | null>(null);
 export function AppContext({children}: Props){
   const [ingresos_fijos, setIngresos] = useIngresosFijos(); 
   const [ahorro] = useAhorro()
-  return <Context.Provider value={{ingresos_fijos, ahorro}}>
+  const [gastos] = useGastos(); 
+  const VALUES: ContextApp = {
+    ingresos_fijos, 
+    ahorro, 
+    gastos,
+  }
+  return <Context.Provider value={VALUES}>
     {children}
   </Context.Provider>
 }
@@ -23,4 +30,9 @@ export const useAhorroData = () => {
   const contextData = useContext(Context);
   if(contextData === null) return null
   return contextData.ahorro
+}
+export const useGastosData = () => {
+  const contextData = useContext(Context);
+  if(contextData === null) return null
+  return contextData.gastos
 }

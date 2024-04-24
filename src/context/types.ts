@@ -15,7 +15,16 @@ export type AhorroData = {
   mes: number, 
   ano: number
 }
+export type GastosData = {
+  id: string, 
+  valor: number, 
+  descripcion: string, 
+  dia: number, 
+  mes: number, 
+  ano: number
+}
 export type ContextApp = {
   ingresos_fijos: ResponseIngreso | null, 
   ahorro: AhorroData[] | null,
+  gastos: GastosData[] | null
 }
