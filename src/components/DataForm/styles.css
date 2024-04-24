@@ -1,0 +1,32 @@
+.form-data{
+  max-width: 470px; 
+  @apply flex flex-col h-full w-full justify-center gap-y-4 mx-auto md:text-xl; 
+}
+.form-data input{
+  @apply px-4 py-2 rounded-[0.5rem] outline-none border border-black/70;  
+}
+.form-data label{
+  position: relative;
+  @apply mx-2 mt-4; 
+}
+.form-data label input{
+  @apply w-full h-full caret-black/40; 
+}
+.form-data label input:not(:placeholder-shown) + span{
+  transform: translateY(-120%);
+}
+.form-data label > span{
+  transition: transform 250ms ease-out; 
+  @apply absolute left-5 top-2; 
+}
+.form-data-fecha{
+  @apply grid gap-x-2 mx-2;
+  grid-template-columns: 1fr 1fr 40%; 
+  grid-template-rows: min-content 1fr; 
+  grid-template-areas: 
+  "title title title"
+  ". . .";
+}
+.form-data-fecha > input{
+  @apply my-2 text-center; 
+}

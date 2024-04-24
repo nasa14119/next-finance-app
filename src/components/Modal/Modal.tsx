@@ -41,24 +41,23 @@ export function Modal({
   }, [state]);
   return (
     <div
-      className={`fixed inset-0 bg-secondary/35 modal-parent`}
+      className={`fixed inset-0 bg-secondary/35 modal-parent z-50`}
       onClick={stopAnimation}
       data-state={animation}
     >
       <div
-        className="modal z-50 bg-white p-2 rounded-[0.5rem] absolute inset-[10%] flex flex-col justify-center items-center text-black max-w-[600px] md:mx-auto"
+        className="modal z-50 bg-white p-2 rounded-[0.5rem] absolute inset-[10%] flex flex-col justify-stretch items-stretch text-black max-w-[600px] md:mx-auto"
         onClick={(e) => e.stopPropagation()}
         data-state={animation}
         onAnimationEnd={handleAnimation}
       >
+        {state ? children : null}
         <div
           className="absolute top-5 right-5 cursor-pointer"
           onClick={stopAnimation}
         >
-          {" "}
           <CloseIcon className="w-6 h-6 pointer-events-none" />
         </div>
-        {state ? children : null}
       </div>
     </div>
   );
