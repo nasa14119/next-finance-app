@@ -7,8 +7,8 @@ const ROUTES = [
     path:"/"
   },
   {
-    title: "Gastos", 
-    path:"/gastos"
+    title: "Data", 
+    path:"/data"
   },
   {
     title: "Metas", 
