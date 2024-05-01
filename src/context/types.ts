@@ -29,7 +29,9 @@ export type GastosData = {
 export type ContextApp = {
   ingresos_fijos: ResponseIngreso | null, 
   ahorro: [AhorroData[] | null, AhorroMethods],
-  gastos: GastosData[] | null
+  gastos: GastosData[] | null, 
+  ErrorMessage: () => JSX.Element, 
+  trowError: (message: string) => void
 }
 export type AhorroNewValue = {
   valor: number,

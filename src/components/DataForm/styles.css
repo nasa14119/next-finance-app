@@ -14,19 +14,20 @@
 }
 .form-data label input:not(:placeholder-shown) + span{
   transform: translateY(-120%);
+  color: #000; 
 }
 .form-data label > span{
   transition: transform 250ms ease-out; 
-  @apply absolute left-5 top-2; 
+  @apply absolute left-5 top-2 text-black/40; 
 }
 .form-data-fecha{
   @apply grid gap-x-2 mx-2;
   grid-template-columns: 1fr 1fr 40%; 
-  grid-template-rows: min-content 1fr; 
+  grid-template-rows: min-content; 
   grid-template-areas: 
   "title title title"
   ". . .";
 }
-.form-data-fecha > input{
+.form-data-fecha input{
   @apply my-2 text-center; 
 }
