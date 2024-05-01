@@ -6,7 +6,7 @@ export const useError = ({duration}: {duration: number}): [() => JSX.Element, (n
     setMessage(newMessage)
   }
   const clear = () => setMessage(null)
-  const Element = () => <ComponentError duration={duration} errorMesage={message} clear={clear}/>
+  const Component = () => <ComponentError duration={duration} errorMesage={message} clear={clear}/>
 
-  return [Element, triggerError]
+  return [Component , triggerError]
 }
