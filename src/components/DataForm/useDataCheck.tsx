@@ -1,18 +1,13 @@
-import { useCallback } from "react";
 import { useTrowError } from "src/context/app"
 import { getYear, removeNonNumeric } from "src/utils";
 import { z } from "zod";
 
-type Props = {
-  value: string | number, 
-  dia: number, 
-  mes: number, 
-  ano: number
-}
-
 const SchemaNewValue = z.object({
   value: z.number().min(1, {
     message: "El valor tiene que ser minimo 1"
+  }), 
+  title: z.string().min(1, {
+    message: "El valor no puede estar vacio"
   }), 
   dia: z.number().min(1, {
     message: "El dia tiene que ser mayor a 0"
@@ -28,10 +23,11 @@ const SchemaNewValue = z.object({
     message: "El año no puede ser menor al año actual"
   })
 })
+type Props = z.infer<typeof SchemaNewValue>
+
 export const useDataCheck = (props : Props) => {
   const handleError = useTrowError(); 
   const handleCheck = () => {
-    props.value = Number(removeNonNumeric(props.value as string)) as number
     const values = SchemaNewValue.safeParse(props); 
     if(!values.success){
       console.error(values.error.errors);

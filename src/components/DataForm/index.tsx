@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./styles.css"
-import { getDay, getFormatedNumber, getMonth, getYear } from 'src/utils';
+import { getDay, getFormatedNumber, getMonth, getYear, removeNonNumeric } from 'src/utils';
 import { useDataCheck } from './useDataCheck';
 type Props = {
   handleSubmit: () => void
@@ -15,6 +15,7 @@ type Props = {
 */
 type State = {
   value: string, 
+  title: string, 
   dia: number| string, 
   mes: number| string, 
   ano: number| string, 
@@ -22,6 +23,7 @@ type State = {
 export function FormData ({type} : {type:string}) {
   const [values, setValue] = useState<State>({
     value: "",
+    title: "", 
     dia: "",
     mes: "", 
     ano: ""
@@ -35,8 +37,10 @@ export function FormData ({type} : {type:string}) {
   const handleUpdate = (update:number | string, key:string) => {
     setValue(prev => ({...prev, [key]: update}))
   }
+  
   const handleSubmit = useDataCheck({
-    value: values.value,
+    value: Number(removeNonNumeric(values.value)),
+    title: values.title, 
     dia: Number(values.dia),
     mes: Number(values.mes),
     ano: Number(values.ano)
@@ -55,7 +59,7 @@ export function FormData ({type} : {type:string}) {
         <span>Valor</span>
       </label>
       <label htmlFor="titulo">
-        <input type="text" name="titulo" id="titulo" placeholder=" " />
+        <input type="text" name="titulo" id="titulo" placeholder=" " value={values.title} onChange={e => handleUpdate(e.target.value, "title")}/>
         <span>Titulo</span>
       </label>
       <div className="form-data-fecha relative">
