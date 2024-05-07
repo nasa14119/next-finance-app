@@ -5,13 +5,14 @@ import { FormData } from '.';
 
 export function useFormModal() {
   const [Modal, openModal] = useModal(); 
-  const handleState = () =>{
-    openModal(true);
+  const handleState = {
+    open: () => openModal(true), 
+    close: () => openModal(false)
   }
   const Element = ({type}:{type: string}) => (
     <Modal>
-      <FormData type={type}/> 
+      <FormData type={type} closeModal={handleState.close}/> 
     </Modal>
   )
-  return [Element, handleState] as [({type}:{type:string}) => JSX.Element, () => void]; 
+  return [Element, handleState] as [typeof Element, {open: () => void, close: () => void}]; 
 }

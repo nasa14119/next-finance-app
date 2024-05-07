@@ -3,7 +3,8 @@ import "./styles.css"
 import { getDay, getFormatedNumber, getMonth, getYear, removeNonNumeric } from 'src/utils';
 import { useDataCheck } from './useDataCheck';
 type Props = {
-  handleSubmit: () => void
+  type: string, 
+  closeModal: () => void
 }
 /*
   valor: number, 
@@ -20,7 +21,7 @@ type State = {
   mes: number| string, 
   ano: number| string, 
 }
-export function FormData ({type} : {type:string}) {
+export function FormData ({type, closeModal}: Props) {
   const [values, setValue] = useState<State>({
     value: "",
     title: "", 
@@ -48,7 +49,8 @@ export function FormData ({type} : {type:string}) {
   return (
     <form className="form-data" onSubmit={e =>{
       e.preventDefault(); 
-      handleSubmit(); 
+      // handleSubmit(); 
+      closeModal()
     }}>
       <h3 className='text-2xl my-2 text-center md:text-left'>{type}</h3>
       <label htmlFor="valor">
