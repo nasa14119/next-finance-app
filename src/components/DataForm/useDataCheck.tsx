@@ -1,4 +1,4 @@
-import { useTrowError } from "src/context/app"
+import { useAhorroMethods, useTrowError } from "src/context/app"
 import { getYear, removeNonNumeric } from "src/utils";
 import { z } from "zod";
 
@@ -27,14 +27,22 @@ type Props = z.infer<typeof SchemaNewValue>
 
 export const useDataCheck = (props : Props) => {
   const handleError = useTrowError(); 
-  const handleCheck = () => {
-    const values = SchemaNewValue.safeParse(props); 
-    if(!values.success){
-      console.error(values.error.errors);
-      handleError(values.error.errors[0].message); 
-      return 
+  const sendInfo = useAhorroMethods()
+  const handleCheck = (): boolean => {
+    const {data:values, success, error} = SchemaNewValue.safeParse(props); 
+    if(!success){
+      console.error(error.errors);
+      handleError(error.errors[0].message); 
+      return false 
     }
-    console.log(values.data);
+    sendInfo?.pushNewValue({
+      valor: values.value, 
+      descripcion: values.title, 
+      dia: values.dia, 
+      mes: values.mes, 
+      ano:values.ano - 2000
+    })
+    return true
   }
   return handleCheck
 }

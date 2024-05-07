@@ -6,14 +6,7 @@ type Props = {
   type: string, 
   closeModal: () => void
 }
-/*
-  valor: number, 
-  descripcion: string, 
-  dia: number, 
-  mes: number, 
-  ano: number
-}
-*/
+
 type State = {
   value: string, 
   title: string, 
@@ -49,7 +42,7 @@ export function FormData ({type, closeModal}: Props) {
   return (
     <form className="form-data" onSubmit={e =>{
       e.preventDefault(); 
-      // handleSubmit(); 
+      handleSubmit(); 
       closeModal()
     }}>
       <h3 className='text-2xl my-2 text-center md:text-left'>{type}</h3>

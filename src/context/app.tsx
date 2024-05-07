@@ -1,6 +1,6 @@
 "use client"
 import { ReactNode, createContext, useContext, useEffect, useReducer, useState } from "react";
-import { ContextApp} from "./types";
+import { AhorroMethods, ContextApp} from "./types";
 import {  useIngresosFijos } from "./endpoints/ingresos-fijos";
 import { useAhorro } from "./endpoints/ahorro";
 import { useGastos } from "./endpoints/gastos";
@@ -39,7 +39,7 @@ export const useAhorroData = () => {
 export const useAhorroMethods = () => {
   const contextData = useContext(Context);
   if(contextData === null) return null
-  return contextData.ahorro[1]
+  return contextData.ahorro[1] as AhorroMethods
 }
 export const useGastosData = () => {
   const contextData = useContext(Context);
