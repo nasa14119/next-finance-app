@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./styles.css"
 import { CloseIcon } from "@assets/icons";
 export function Modal({
@@ -15,10 +15,10 @@ export function Modal({
   const startAnimation = () => {
     setAnimanition("transition-in");
   };
-  const stopAnimation = () => {
+  const stopAnimation = useCallback(() => {
     setAnimanition("transition-out");
     setTimeout(close, 750)
-  };
+  }, [close]);
   const handleAnimation = () => {
     if (animation === "transition-in") {
       setAnimanition("true");
@@ -38,7 +38,8 @@ export function Modal({
       startAnimation();
       return;
     }
-  }, [state]);
+  }, [state, stopAnimation]);
+
   return (
     <div
       className={`fixed inset-0 bg-secondary/35 modal-parent z-50`}
