@@ -15,10 +15,10 @@ export const DisplayDatos = ({data, type, className, ...rest}:Props) => {
       <a href={`/data/${type === "ingresos" ? "ingresos": "gastos"}`}>
         <h2>{type === "ingresos" ? "Ingresos": "Gastos"}</h2>
       </a>
-      <div className="w-full h-full max-h-full overflow-y-scroll">
+      <div className="w-full h-full max-h-full md:max-h-[90%] overflow-y-scroll">
         {data.map(value => <RowData key={value.id} ano={value.ano} dia={value.dia} mes={value.mes} title={value.descripcion} value={value.valor}/> )}
       </div>
-      <span className="absolute right-2 bottom-2 text-sm">total: ${sumOfData ?? 0}</span>
+      <span className="absolute right-2 bottom-2 text-sm bg-primary/85 px-3 rounded-lg">total: ${sumOfData ?? 0}</span>
     </section>
   );
 }
