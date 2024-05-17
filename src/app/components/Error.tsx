@@ -1,9 +1,9 @@
 "use client"
 
-import { useErrorComponent } from "src/context/app"
+import { useErrorComponent } from "src/context/error"
 
 export function Error (){
-  const Component= useErrorComponent() as any; 
+  const Component = useErrorComponent()
   return <Component />
 }
 export default Error; 

@@ -4,7 +4,7 @@ import { AddIngresoBtn } from "@components/AgregarIngreso";
 import { Nav } from "../components/Nav";
 import { DiasFaltantes, ProximoPago, UltimoPago } from "./components/DisplayPagos";
 import { InformationSection } from "./sections/Information";
-import Error from "./components/Error";
+import Error from "src/app/components/Error";
 
 export default async function Home() {
   return (
@@ -33,7 +33,7 @@ export default async function Home() {
           <InformationSection/> 
         </section>
       </main>
-      <Error />
+      <Error /> 
     </>
   );
 }

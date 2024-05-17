@@ -18,9 +18,7 @@ export function AppContext({children}: Props){
   const VALUES: ContextApp = {
     ingresos_fijos, 
     ahorro, 
-    gastos,
-    ErrorMessage, 
-    trowError
+    gastos
   }
   return <Context.Provider value={VALUES}>
     {children}
@@ -45,14 +43,4 @@ export const useGastosData = () => {
   const contextData = useContext(Context);
   if(contextData === null) return null
   return contextData.gastos
-}
-export const useErrorComponent = () =>{
-  const contextData = useContext(Context); 
-  if(contextData === null) return <div></div>
-  return contextData.ErrorMessage
-}
-export const useTrowError = () =>{
-  const contextData = useContext(Context); 
-  if(contextData === null) return () => null
-  return contextData.trowError
 }

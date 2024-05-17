@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { AppContext } from "src/context/app";
+import { ErrorContextProvider } from "src/context/error";
 
 const popins = Poppins({
   weight: "400",
@@ -34,9 +35,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={popins.className}>
-        <AppContext>
-          {children}
-        </AppContext>
+        <ErrorContextProvider>
+          <AppContext>
+            {children}
+          </AppContext>
+        </ErrorContextProvider>
       </body>
     </html>
   );
