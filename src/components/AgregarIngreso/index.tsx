@@ -1,13 +1,13 @@
 "use client"
-import { useFormModal } from "@components/DataForm/useFormModal";
+import { useFormIngreso } from "@components/DataForm/useFormIngreso";
 import {AddIcon} from "../../assets/icons"
 export const AddIngresoBtn = () => {
-  const [Form, handleState] = useFormModal(); 
+  const [Form, handleState] = useFormIngreso(); 
   return (
-    <div onClick={handleState.open} className="cursor-pointer flex justify-start gap-x-5 h-10 items-center bg-accent/20 mb-5 p-5 rounded-xl md:w-[250px]">
+    <div onClick={() => handleState(true)} className="cursor-pointer flex justify-start gap-x-5 h-10 items-center bg-accent/20 mb-5 p-5 rounded-xl md:w-[250px]">
       <AddIcon className="w-6 h-6 text-accent" />
       <span>Agregar Ingreso</span>
-      <Form type={"Ingresos"}/> 
+      <Form/> 
     </div>
   );
 };

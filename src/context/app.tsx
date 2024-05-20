@@ -4,7 +4,7 @@ import { AhorroMethods, ContextApp} from "./types";
 import {  useIngresosFijos } from "./endpoints/ingresos-fijos";
 import { useAhorro } from "./endpoints/ahorro";
 import { useGastos } from "./endpoints/gastos";
-import { useFormModal } from "@components/DataForm/useFormModal";
+import { useFormModal } from "@components/DataForm/useFormIngreso";
 import { useError } from "@components/ErrorMessage/useError";
 type Props = {
   children: ReactNode, 
