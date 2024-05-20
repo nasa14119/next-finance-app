@@ -34,11 +34,10 @@ export function Modal({
       firstload.current = false;
       return;
     }
-    if (state) {
-      startAnimation();
-      return;
+    if(state){
+      startAnimation(); 
     }
-  }, [state, stopAnimation]);
+  }, [state]);
 
   return (
     <div
