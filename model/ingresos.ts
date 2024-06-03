@@ -24,7 +24,7 @@ export const createIngreso = (ingreso : Ingreso) => {
     $descripcion: ingreso.descripcion,
     $dia : ingreso.dia, 
     $mes: ingreso.mes, 
-    $ano: ingreso.mes
+    $ano: ingreso.ano
   }
   value.run(newValue); 
   return getIngresoData(newValue.$id); 
