@@ -24,7 +24,7 @@ export const createGasto = (gasto : Gasto) => {
     $descripcion: gasto.descripcion,
     $dia : gasto.dia, 
     $mes: gasto.mes, 
-    $ano: gasto.mes
+    $ano: gasto.ano
   }
   value.run(newGasto); 
   return getGasto(newGasto.$id); 
