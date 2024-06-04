@@ -2,17 +2,24 @@ import { useModal } from '@components/Modal/useModal'
 import React from 'react'
 import { FormDataGastos } from '.';
 import z from "zod"
-import { getYear } from 'src/utils';
 import { ReturnHandleSumit, SchemaNewValue } from './types';
+import { useGastosMutations } from 'src/context/app';
 export type PropsNewValue = z.infer<typeof SchemaNewValue>
 const useDataCheckGastos = () => {
-  const sendInfo = () => ""
+  const { pushNewValue } = useGastosMutations()
   const handleCheck:ReturnHandleSumit = (props) => {
     const {data:values, success, error} = SchemaNewValue.safeParse(props); 
     if(!success){
       console.error(error.errors);
       return [error.errors[0].message]
     }
+    pushNewValue({
+      valor: values.value, 
+      descripcion: values.title, 
+      dia: values.dia,
+      mes: values.mes, 
+      ano: values.ano,
+    }); 
     return [null]
   }
   return handleCheck

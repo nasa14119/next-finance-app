@@ -19,7 +19,7 @@ const sendNewValue = async (body:GastoData) => {
     method: "POST", 
     body: JSON.stringify(body)
   })
-  if(res.ok || res.status !== 200){
+  if(res.status !== 200){
     throw "Error al enviar la información"
   }
   return await res.json()
@@ -29,7 +29,7 @@ export const useGastos = () : useGastosReturn => {
   const trowError = useTrowError(); 
   const Methods : GastosMutations = {
     pushNewValue(value) {
-      sendNewValue(value).then(r => setState(prev => [r, ...prev])).catch(e => trowError(e))
+      sendNewValue(value).then(r => setState(prev => [...prev, r])).catch(e => trowError(e))
     },
   }
   useEffect(() =>{
