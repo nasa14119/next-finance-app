@@ -17,7 +17,8 @@ const config: Config = {
       'black': "#000000", 
       'white': '#ffffff', 
       'rose' : '#be143c', 
-      'pink': '#db2777'
+      'pink': '#db2777', 
+      'yellow': "#f6d83a"
      },
     extend: {
       backgroundImage: {
