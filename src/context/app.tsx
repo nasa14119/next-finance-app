@@ -1,6 +1,6 @@
 "use client"
 import { ReactNode, createContext, useContext, useEffect, useReducer, useState } from "react";
-import { AhorroMethods, ContextApp} from "./types";
+import { AhorroMethods, ContextApp, GastosMutations} from "./types";
 import {  useIngresosFijos, usePaymentMethods } from "./endpoints/ingresos-fijos";
 import { useAhorro } from "./endpoints/ahorro";
 import { useGastos } from "./endpoints/gastos";
@@ -50,8 +50,8 @@ export const useGastosData = () => {
   if(contextData === null) return null
   return contextData.gastos
 }
-export const useGastosMutations = () => {
+export const useGastosMutations = ():GastosMutations => {
   const contetData = useContext(Context); 
-  if(contetData === null) return {}
+  if(contetData === null) return {} as GastosMutations
   return contetData.setGastosMethods
 }
