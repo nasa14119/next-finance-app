@@ -1,12 +1,21 @@
+
 export type ResponseIngreso = {
   valor: number,
   dia_entrada: number,
   mes_entrada: number,
   ano_entrada: number,
   isDelay: boolean,
+  isPay: boolean, 
   time_delay: number,
   estado: number,
 }
+export type ResponseUseIngresosFijos = [
+  null | ResponseIngreso, 
+  {
+    changeValue : (param: null | ResponseIngreso) => void,
+    reFetchValues: () => void 
+  }
+]
 export type AhorroData = {
   id: string, 
   valor: number, 
@@ -28,6 +37,7 @@ export type GastosData = {
 }
 export type ContextApp = {
   ingresos_fijos: ResponseIngreso | null, 
+  setIngresosMethods: ResponseUseIngresosFijos[1], 
   ahorro: [AhorroData[] | null, AhorroMethods],
   gastos: GastosData[] | null, 
 }

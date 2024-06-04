@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { AhorroData, AhorroNewValue, AhorroMethods as MutationsFuctions } from "../types";
-import { useTrowError } from "../app";
 
 const getAhorros = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/ingreso`, {
@@ -29,7 +28,6 @@ export const useAhorro = () => {
         return [...prev, {id: "preview", ...value}] as AhorroData[]
       })
       const res = await sendIngreso({body:value})
-      console.log(res);
       const getData = getAhorros()
       getData.then(v => {
         setState(v)
