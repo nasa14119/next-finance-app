@@ -31,7 +31,7 @@ app.get("/dinero-no-recibido", (req, res) =>{
 const DineroEntrada = z.object({
   dia_entrada: z.number().min(1).max(31), 
   mes_entrada: z.number().min(1).max(12), 
-  ano_entrada: z.number().max(99)
+  ano_entrada: z.number()
 })
 type DineroEntrada = z.infer<typeof DineroEntrada>
 app.put("/dinero-entrada", (req, res) =>{

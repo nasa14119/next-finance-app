@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { db } from "../db"
 import { formatDateRes, getDay, getMonth } from "../utils"
+import moment from "moment"
 const IngresosFijos = z.object({
   valor: z.number(), 
   dia_entrada: z.number(), 
@@ -31,9 +32,9 @@ export const updateValorIngresosFijos = (new_valor: number) : FormatIngresosFijo
   return getIngresosFijos(); 
 }
 export const checkDelayTime = () => {
-  const {dia_entrada,isDelay : notPay } =  getIngresosFijos();
+  const {dia_entrada, mes_entrada, isDelay : notPay } =  getIngresosFijos();
   const dia_actual = getDay(); 
-  if (dia_entrada > dia_actual || !notPay) {
+  if (dia_entrada > dia_actual && !notPay) {
     const query = db.prepare(`
     UPDATE ingresos_fijos 
     SET isDelay = 0, time_delay = 0
@@ -41,7 +42,8 @@ export const checkDelayTime = () => {
     query.run(); 
     return getIngresosFijos();
   }
-  let $time_delay = dia_actual - dia_entrada; 
+  const lastPayment = moment({day: dia_entrada, month: mes_entrada})
+  let $time_delay = lastPayment.diff(moment(), "days")
   const query = db.prepare(`
     UPDATE ingresos_fijos 
     SET isDelay = 1, time_delay = $time_delay
@@ -52,11 +54,12 @@ export const checkDelayTime = () => {
 }
 export const dineroNoRecibido = () => {
   checkDelayTime(); 
+  const { mes_entrada } = getIngresosFijos(); 
   const query = db.query(`
     UPDATE ingresos_fijos
-    SET isDelay = 1 
+    SET isDelay = 1, mes_entrada = $mes_entrada 
   `)
-  query.run(); 
+  query.run({$mes_entrada:mes_entrada - 1}); 
   const {isDelay} = getIngresosFijos(); 
   return isDelay ; 
 }
