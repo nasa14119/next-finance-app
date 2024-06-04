@@ -24,8 +24,23 @@ export type AhorroData = {
   mes: number, 
   ano: number
 }
+export type GastoData = {
+  id: string, 
+  valor: number, 
+  descripcion: string, 
+  dia: number, 
+  mes: number, 
+  ano: number
+}
 export type AhorroMethods = {
   pushNewValue : (value: AhorroNewValue) =>  void
+}
+export type useGastosReturn = [
+  GastoData[], 
+  GastosMutations
+]
+export type GastosMutations = {
+  pushNewValue: (value: GastoData) => void
 }
 export type GastosData = {
   id: string, 
@@ -39,7 +54,8 @@ export type ContextApp = {
   ingresos_fijos: ResponseIngreso | null, 
   setIngresosMethods: ResponseUseIngresosFijos[1], 
   ahorro: [AhorroData[] | null, AhorroMethods],
-  gastos: GastosData[] | null, 
+  gastos: GastoData[], 
+  setGastosMethods: GastosMutations
 }
 export type AhorroNewValue = {
   valor: number,

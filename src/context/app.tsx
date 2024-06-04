@@ -13,12 +13,13 @@ export function AppContext({children}: Props){
   const [ingresos_fijos, setIngresosMethods] = useIngresosFijos(); 
   const [ErrorMessage, trowError] = useError({duration: 1000}); 
   const ahorro = useAhorro()
-  const [gastos] = useGastos(); 
+  const [gastos, setGastosMethods] = useGastos(); 
   const VALUES: ContextApp = {
     ingresos_fijos, 
     setIngresosMethods,
     ahorro, 
-    gastos
+    gastos, 
+    setGastosMethods
   }
   return <Context.Provider value={VALUES}>
     {children}
@@ -48,4 +49,9 @@ export const useGastosData = () => {
   const contextData = useContext(Context);
   if(contextData === null) return null
   return contextData.gastos
+}
+export const useGastosMutations = () => {
+  const contetData = useContext(Context); 
+  if(contetData === null) return {}
+  return contetData.setGastosMethods
 }
