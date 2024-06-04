@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GastosData, GastosMutations, useGastosReturn } from "../types";
+import { GastoData, GastosMutations, useGastosReturn } from "../types";
 import { useTrowError } from "../error";
 
 const getGastos = async () => {
@@ -11,7 +11,7 @@ const getGastos = async () => {
   })
   return await res.json()
 }
-const sendNewValue = async (body:GastosData) => {
+const sendNewValue = async (body:GastoData) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/gastos`, {
     headers: {
       "Content-Type": "application/json"
@@ -25,7 +25,7 @@ const sendNewValue = async (body:GastosData) => {
   return await res.json()
 }
 export const useGastos = () : useGastosReturn => {
-  const [state, setState] = useState<GastosData[]>([]); 
+  const [state, setState] = useState<GastoData[]>([]); 
   const trowError = useTrowError(); 
   const Methods : GastosMutations = {
     pushNewValue(value) {
@@ -34,7 +34,7 @@ export const useGastos = () : useGastosReturn => {
   }
   useEffect(() =>{
     const goToServer = async () => {
-      const res: GastosData[] = await getGastos(); 
+      const res: GastoData[] = await getGastos(); 
       setState(res); 
     }
     goToServer(); 

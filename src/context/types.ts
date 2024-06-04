@@ -25,7 +25,6 @@ export type AhorroData = {
   ano: number
 }
 export type GastoData = {
-  id: string, 
   valor: number, 
   descripcion: string, 
   dia: number, 
@@ -41,14 +40,6 @@ export type useGastosReturn = [
 ]
 export type GastosMutations = {
   pushNewValue: (value: GastoData) => void
-}
-export type GastosData = {
-  id: string, 
-  valor: number, 
-  descripcion: string, 
-  dia: number, 
-  mes: number, 
-  ano: number
 }
 export type ContextApp = {
   ingresos_fijos: ResponseIngreso | null, 
