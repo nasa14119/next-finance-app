@@ -1,6 +1,6 @@
 import { Router } from "express"
 import  { z } from "zod";
-import { configDiaEntrada, dineroNoRecibido, dineroRecibido, getIngresosFijos, updateValorIngresosFijos } from "../model/ingresos_fijos";
+import { checkOnTime, configDiaEntrada, dineroNoRecibido, dineroRecibido, dineroRecibidoUndo, getIngresosFijos, updateValorIngresosFijos } from "../model/ingresos_fijos";
 const app = Router();
 app.get("/", (req, res) =>{
   const value = getIngresosFijos(); 
@@ -21,12 +21,20 @@ app.put("/valor", (req, res) => {
   }
 })
 app.get("/dinero-recibido", (req, res) =>{
-  const time_delay = dineroRecibido(); 
-  res.status(200).send({time_delay}); 
+  dineroRecibido(); 
+  res.sendStatus(200)
 })
 app.get("/dinero-no-recibido", (req, res) =>{
-  const isDelay = dineroNoRecibido(); 
-  res.status(200).send({isDelay}); 
+  dineroNoRecibido(); 
+  res.sendStatus(200) 
+})
+app.get("/dinero-recibido-undo", (req, res) =>{
+  dineroRecibidoUndo();
+  res.sendStatus(200)
+} )
+app.get("/check-delay", (req, res) => {
+  checkOnTime(); 
+  res.sendStatus(200); 
 })
 const DineroEntrada = z.object({
   dia_entrada: z.number().min(1).max(31), 
