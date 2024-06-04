@@ -42,7 +42,7 @@ export const checkDelayTime = () => {
     query.run(); 
     return getIngresosFijos();
   }
-  const lastPayment = moment({day: dia_entrada, month: mes_entrada})
+  const lastPayment = moment({day: dia_entrada, month: mes_entrada - 1})
   let $time_delay = lastPayment.diff(moment(), "days")
   const query = db.prepare(`
     UPDATE ingresos_fijos 
