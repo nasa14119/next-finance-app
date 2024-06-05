@@ -12,7 +12,7 @@ export function RowData(info:Props) {
       <li className="text-center md:text-left">${info.value}</li>
       <li className="text-right flex justify-between w-full md:max-w-36 ml-auto">
         <span>fecha:</span>
-        <span>{info.dia}/{info.mes}/20{info.ano}</span>
+        <span>{info.dia}/{info.mes}/{info.ano}</span>
         </li>
     </ul>
   )
