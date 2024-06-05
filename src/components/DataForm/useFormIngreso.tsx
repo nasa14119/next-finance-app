@@ -18,7 +18,7 @@ const useDataCheckIngresos = () => {
       descripcion: values.title, 
       dia: values.dia, 
       mes: values.mes, 
-      ano:values.ano - 2000
+      ano:values.ano
     })
     return [null]
   }
