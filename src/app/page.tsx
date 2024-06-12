@@ -2,9 +2,9 @@ import { GraficoCircular } from "@components/GraficoCircular";
 import { AddGastoBtn } from "@components/AgregarGasto";
 import { AddIngresoBtn } from "@components/AgregarIngreso";
 import { Nav } from "../components/Nav";
-import { DisplayPagos } from "./components/DisplayPagos";
-import { InformationSection } from "./sections/Information";
-import Error from "src/app/components/Error";
+import { DisplayPagos } from "@home/DisplayPagos";
+import { InformationSection } from "@home/sections/Information";
+import Error from "@components/app/Error";
 
 export default async function Home() {
   return (
