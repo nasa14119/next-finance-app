@@ -20,6 +20,7 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"],
+      "@home/*": ["src/components/app/*"],
       "@assets/*": ["src/assets/*"]
     }
   },
