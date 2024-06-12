@@ -22,7 +22,7 @@ export default async function Home() {
           </main>
         </section>
         <section className="h-screen w-screen grid [grid-template-rows:1fr] md:[grid-template-rows:15vh_85vh] p-5 md:w-full md:h-full grid-cols-1">
-          <header className="md:grid hidden">
+          <header className="absolute md:relative md:grid">
             <Nav />
           </header>
           <InformationSection/> 
