@@ -1,7 +1,12 @@
 "use client"
 import { useState } from "react"
 import "./styles.css"
-const ROUTES = [
+type RoutesProp = {
+  title: string;
+  path: string;
+}[];
+
+const ROUTES_APP = [
   {
     title: "Home", 
     path:"/"
@@ -15,7 +20,17 @@ const ROUTES = [
     path:"/metas"
   },
 ]
-const NavMobile = () =>{
+const ROUTES_DATA = [
+  {
+    title: "Home", 
+    path:"/"
+  },
+  {
+    title: "Metas", 
+    path:"/metas"
+  },
+]
+const NavMobile = ({ROUTES}: {ROUTES: RoutesProp}) =>{
   const [isOpen, switchState] = useState(false); 
   const handleState = () => {
     switchState(prev => !prev)
@@ -40,7 +55,7 @@ const NavMobile = () =>{
     </>
   );
 }
-const NavNormal = () =>{
+const NavNormal = ({ROUTES}: {ROUTES: RoutesProp}) =>{
   return (
     <>
       <ul className="flex basis-full justify-end gap-x-2 items-center w-full h-full text-base">
@@ -56,10 +71,17 @@ const NavNormal = () =>{
 export const Nav = () =>{
   return (<>
     <nav className="md:hidden">
-      <NavMobile/>
+      <NavMobile ROUTES={ROUTES_APP}/>
     </nav>
     <nav className="hidden md:block">
-      <NavNormal/>
+      <NavNormal ROUTES={ROUTES_APP}/>
+    </nav>
+  </>)
+}
+export const NavData = () =>{
+  return (<>
+    <nav className="">
+      <NavNormal ROUTES={ROUTES_DATA}/>
     </nav>
   </>)
 }
