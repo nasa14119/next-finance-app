@@ -1,24 +1,23 @@
 
 import Error from "@components/app/Error";
 import { Header } from "@components/data/Header";
-const getAhorros = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/ingreso`, {
-    headers: {
-      "Content-Type": "application/json"
-    }, 
-    method: "GET"
-  })
-  return await res.json()
-}
+import { LoadingSkeletonData } from "@components/data/LoadingSkeletonData";
+import { DisplaySaldo } from "@components/data/sections/DisplaySaldo";
+import { Suspense } from "react";
+import { getSaldo } from "src/context/data/enpoints";
+
 export default async function Home() {
-  const data = await getAhorros()
+  const data = await getSaldo()
 
   return (
     <>
-      <main className="grid grid-cols-1 my-5">
-        <Header page="Saldo"/>
-      </main>
-      <Error /> 
+        <main className="grid grid-cols-1 pt-5 ">
+          <Header page="Saldo" />
+          <Suspense fallback={<LoadingSkeletonData/>}>
+            <DisplaySaldo data={data}/> 
+          </Suspense>
+        </main>
+        <Error />
     </>
   );
 }

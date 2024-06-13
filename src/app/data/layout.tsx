@@ -5,6 +5,7 @@ import { SideMenu } from "../../components/data/SideMenu";
 import "../globals.css"
 import "@assets/css/data.css"
 import Error from "@components/app/Error";
+
 const popins = Poppins({
   weight: "400",
   subsets: ["latin"],
