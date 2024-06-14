@@ -1,10 +1,23 @@
 "use client"
 
-import { Fragment} from "react";
+import { Fragment, useEffect, useState} from "react";
 import { AgrupedDataValue, useAgrupatedMonthData } from "./hooks/useAgrupatedMonthData";
 import {NetoRow} from "./NetoRow";
+import { useAllMonths } from "@context/data";
+import moment from "moment";
+const month = moment().get("M") + 1;
 export function DisplayNetoInfo({data}: {data: AgrupedDataValue[]}) {
-  const formatData = useAgrupatedMonthData(data); 
+  const isAllMonths = useAllMonths(); 
+  const [displayData, setDisplayData] = useState(data)
+  const formatData = useAgrupatedMonthData(displayData); 
+  useEffect(() =>{
+    setDisplayData(prev => {
+      if(isAllMonths){
+        return data 
+      }
+      return prev.filter(v => v.mes === month)
+    })
+  },[data, isAllMonths])
   return (
     <div>{
       formatData.map(([month, values]) => (
