@@ -2,6 +2,7 @@
 import Error from "@components/app/Error";
 import { Header } from "@components/data/Header";
 import { LoadingSkeletonData } from "@components/data/LoadingSkeletonData";
+import { ResumenInfo } from "@components/data/ResumenInfo";
 import { DisplaySaldo } from "@components/data/sections/DisplaySaldo";
 import { Suspense } from "react";
 import { DataContext } from "src/context/data";
@@ -14,11 +15,14 @@ export default async function Home() {
     <>
         <main className="grid grid-cols-1 pt-5 ">
           <Header page="Saldo" />
-          <Suspense fallback={<LoadingSkeletonData/>}>
-            <DataContext data={data}>
-              <DisplaySaldo/> 
-            </DataContext>
-          </Suspense>
+          <section className="px-4">
+            <Suspense fallback={<LoadingSkeletonData/>}>
+              <DataContext data={data}>
+                <ResumenInfo />
+                <DisplaySaldo/> 
+              </DataContext>
+            </Suspense>
+          </section>
         </main>
         <Error />
     </>
