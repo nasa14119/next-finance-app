@@ -1,11 +1,11 @@
 "use client"
-import { ReactNode, createContext, useContext, useState } from "react";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { AhorroData } from "../types";
 
-const initialMonths = false
+const initialMonths = null
 const Context = createContext({data: []}); 
 type ValuesContexConfig = {
-  allMonths: boolean;
+  allMonths: boolean | null;
   toogleMonth: (value?: boolean) => void;
 };
 const ContextConfig = createContext({allMonths: initialMonths, toogleMonth: () => {}}); 
@@ -16,10 +16,27 @@ export const DataContext = ({data, children}: {data:any, children : ReactNode}) 
   </Context.Provider>
 }
 export const DataConfig = ({children}: {children : ReactNode}) => {
-  const [allMonths, setAllMonths] = useState(initialMonths);
+  const [allMonths, setAllMonths] = useState<null | boolean>(initialMonths);
+  useEffect(() => {
+    const value = window.localStorage.getItem("toggle")
+    if(value === null){
+      window.localStorage.setItem("toggle", "false")
+      setAllMonths(false); 
+      return 
+    }
+    setAllMonths( Boolean(value))
+  },[])
   const toogleMonth = (value?:boolean) => {
-    if(typeof value === "undefined") return setAllMonths(prev => !prev); 
-    setAllMonths(value); 
+    setAllMonths(prev =>{
+      const newValue = !prev
+      if (typeof value === "undefined") {
+        localStorage.setItem("toggle", newValue.toString())
+        return newValue
+      } else {
+        localStorage.setItem("toggle", value.toString())
+        return value
+      }
+    })
   }
   const VALUES : ValuesContexConfig = {
     allMonths, 

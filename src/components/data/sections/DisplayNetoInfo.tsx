@@ -5,6 +5,7 @@ import { AgrupedDataValue, useAgrupatedMonthData } from "./hooks/useAgrupatedMon
 import {NetoRow} from "./NetoRow";
 import { useAllMonths } from "@context/data";
 import moment from "moment";
+import { LoadingSkeletonData } from "../LoadingSkeletonData";
 const month = moment().get("M") + 1;
 export function DisplayNetoInfo({data}: {data: AgrupedDataValue[]}) {
   const isAllMonths = useAllMonths(); 
@@ -19,6 +20,7 @@ export function DisplayNetoInfo({data}: {data: AgrupedDataValue[]}) {
       return prev.filter(v => v.mes === month)
     })
   },[data, isAllMonths])
+  if(isAllMonths === null) return <LoadingSkeletonData />
   return (
     <div>{
       formatData.map(([month, values]) => (

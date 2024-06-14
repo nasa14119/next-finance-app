@@ -2,6 +2,7 @@
 import { useRef, useState } from "react"
 import { DATA_LINKS } from "."
 import { RowLink } from "./RowLink"
+import { ToggleAllMonths } from "@components/Toogle"
 const NavLinks = [
   {
     title: "Home", 
@@ -16,7 +17,6 @@ export function SideMenuMobile() {
   const container = useRef<HTMLDivElement | null>(null); 
   const [isOpen, setState] = useState(false);
   const handleClick = () => {
-
     setState(prev => {
       const newState = !prev; 
       if(newState){
@@ -63,6 +63,7 @@ export function SideMenuMobile() {
         {DATA_LINKS.map((data) => (
           <RowLink {...data} key={data.title} bg="bg-[#599fa9]"/>
         ))}
+        <ToggleAllMonths className="absolute bottom-5 right-2"/>
       </section>
     </>
   );
