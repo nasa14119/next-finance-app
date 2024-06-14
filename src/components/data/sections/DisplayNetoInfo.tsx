@@ -8,10 +8,11 @@ import moment from "moment";
 const month = moment().get("M") + 1;
 export function DisplayNetoInfo({data}: {data: AgrupedDataValue[]}) {
   const isAllMonths = useAllMonths(); 
-  const [displayData, setDisplayData] = useState(data)
+  const dataCurrentMonth = data.filter(v => v.mes === month)
+  const [displayData, setDisplayData] = useState(dataCurrentMonth)
   const formatData = useAgrupatedMonthData(displayData); 
   useEffect(() =>{
-    setDisplayData(prev => {
+    setDisplayData((prev) => {
       if(isAllMonths){
         return data 
       }
