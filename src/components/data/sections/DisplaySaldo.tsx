@@ -3,7 +3,9 @@
 import { Fragment} from "react";
 import { AgrupedDataValue, useAgrupatedMonthData } from "./hooks/useAgrupatedMonthData";
 import SaldoRow from "./SaldoRow";
-export function DisplaySaldo({data}: {data: AgrupedDataValue[]}) {
+import { useDataDB } from "@context/data/index";
+export function DisplaySaldo() {
+  const data : AgrupedDataValue[] = useDataDB(); 
   const formatData = useAgrupatedMonthData(data); 
   return (
     <div>{
