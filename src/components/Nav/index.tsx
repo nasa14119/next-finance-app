@@ -80,7 +80,7 @@ export const Nav = () =>{
 }
 export const NavData = () =>{
   return (<>
-    <nav className="">
+    <nav className="hidden md:block">
       <NavNormal ROUTES={ROUTES_DATA}/>
     </nav>
   </>)

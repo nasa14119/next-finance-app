@@ -1,6 +1,7 @@
 import React from 'react'
 import { RowLink } from './RowLink'
-const DATA_LINKS = [
+import { SideMenuMobile } from './SideMenuMobile'
+export const DATA_LINKS = [
   {
     title: "Saldo", 
     url: "/data"
@@ -17,6 +18,7 @@ const DATA_LINKS = [
 export function SideMenu() {
   return (
     <>
+      <SideMenuMobile/>
       <section className="m-5 hidden md:flex flex-col">
         <div className='flex flex-col gap-y-2'>
           {

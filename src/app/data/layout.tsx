@@ -39,7 +39,7 @@ export default function RootLayout({
       <body className={popins.className}>
         <div className="data-layout">
           <SideMenu />
-          <div>
+          <div className="md:h-screen md:overflow-y-scroll">
             <ErrorContextProvider>
               {children}
             </ErrorContextProvider>

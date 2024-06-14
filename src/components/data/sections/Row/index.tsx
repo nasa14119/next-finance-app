@@ -6,13 +6,16 @@ type Value = {
   mes: number, 
   ano: number
 }
-export function NetoRow({
+export function Row({
   value,
+  className,
+  ...rest
 }: {
-  value: Value;
+  value: Value, 
+  className: string
 }) {
   return (
-    <div className={`grid grid-cols-2 md:[grid-template-columns:1fr_5rem_20%] gap-x-3 mx-2 md:ml-4 px-2 py-1 rounded-2xl cursor-pointer`}>
+    <div className={`grid grid-cols-2 md:[grid-template-columns:1fr_5rem_20%] gap-x-3 mx-2 md:ml-4 px-2 py-1 rounded-2xl ${className}`} {...rest}>
       <span className="col-span-2 md:col-span-1">{value.descripcion}</span>
       <span>
         {value.dia}/{value.mes}/{value.ano}

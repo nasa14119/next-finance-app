@@ -21,6 +21,5 @@ export const getSaldo = async () => {
   let ingresos = await getAhorros(); 
   const gastos = await getGastos(); 
   ingresos = ingresos.map( (v:any) => ({ingreso: true, ...v}))
-  console.log(ingresos);
   return [...ingresos, ...gastos]
 }
