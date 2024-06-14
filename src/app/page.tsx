@@ -9,8 +9,8 @@ import Error from "@components/app/Error";
 export default async function Home() {
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-between md:grid md:grid-cols-2 p-2 md:gap-x-2 ">
-        <section className="h-screen w-screen grid [grid-template-rows:15vh_85vh] grid-cols-1 p-5 md:w-full md:h-full">
+      <main className="flex h-screen flex-col items-center justify-between md:grid md:grid-cols-2 p-2 md:gap-x-2 ">
+        <section className="h-full w-full grid [grid-template-rows:10%_1fr] grid-cols-1 p-5 md:w-full md:h-full">
           <header className="flex flex-col items-center justify-center">
             <h1 className="text-xl text-center">Resumen</h1>
           </header>
@@ -21,7 +21,7 @@ export default async function Home() {
             <AddGastoBtn />
           </main>
         </section>
-        <section className="h-screen w-screen grid [grid-template-rows:1fr] md:[grid-template-rows:15vh_85vh] p-5 md:w-full md:h-full grid-cols-1">
+        <section className="h-full w-full grid [grid-template-rows:1fr] md:[grid-template-rows:10%_1fr] p-5 md:w-full md:h-full grid-cols-1">
           <header className="absolute md:relative md:grid">
             <Nav />
           </header>
