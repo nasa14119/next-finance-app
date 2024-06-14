@@ -5,6 +5,7 @@ import { SideMenu } from "../../components/data/SideMenu";
 import "../globals.css"
 import "@assets/css/data.css"
 import Error from "@components/app/Error";
+import { DataConfig } from "@context/data";
 
 const popins = Poppins({
   weight: "400",
@@ -38,7 +39,9 @@ export default function RootLayout({
     <html lang="es">
       <body className={popins.className}>
         <div className="data-layout">
-          <SideMenu />
+          <DataConfig>
+            <SideMenu />
+          </DataConfig>
           <div className="md:h-screen md:overflow-y-scroll">
             <ErrorContextProvider>
               {children}
