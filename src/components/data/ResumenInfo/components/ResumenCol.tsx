@@ -1,3 +1,4 @@
+"use client"
 import { AhorroData } from "@context/types";
 
 export function ResumenCol({ data }: { data: AhorroData[] }) {
