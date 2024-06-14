@@ -1,7 +1,6 @@
 import { useDataDB } from "@context/data"
 import { AhorroData } from "@context/types";
 import moment from "moment";
-import { useMemo } from "react";
 import { groupBy } from "src/utils";
 const month = moment().get("M") + 1
 type ReturnedObejct = {
@@ -10,10 +9,8 @@ type ReturnedObejct = {
 } 
 export const useAgrupedByType = () : ReturnedObejct=> {
   const data = useDataDB()
-  const agrupedData = useMemo(() => {
-    const filterThisMonth = data.filter(v => v.mes === month)
-    return groupBy(filterThisMonth, (value:any) => value.ingreso ? "ingresos" : "gastos")
-  }, [data])
+  const filterThisMonth = data.filter(v => v.mes === month)
+  const agrupedData = groupBy(filterThisMonth, (value:any) => value.ingreso ? "ingresos" : "gastos")
   return agrupedData
 }
 
