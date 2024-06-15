@@ -12,7 +12,7 @@ export function DisplaySaldo() {
       formatData.map(([month, values]) => (
       <Fragment key={month}>
         <h2 className="capitalize text-xl max-w-[500px] md:mx-auto">{month}</h2>
-        <div className="flex gap-y-2 justify-start flex-col max-w-[500px] md:mx-auto">
+        <div className="flex gap-y-2 justify-start flex-col max-w-[500px] md:mx-auto text-sm">
           {values?.map(value => <SaldoRow value={value} ingreso={value.ingreso} key={value.id}/>)}
         </div>
       </Fragment>
