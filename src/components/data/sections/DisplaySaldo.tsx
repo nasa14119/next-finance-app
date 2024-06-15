@@ -25,7 +25,7 @@ export function DisplaySaldo() {
   const data : AgrupedDataValue[] = useDataDB(); 
   const formatData = useAgrupatedMonthData(data);
   if(isActive === null ) return <LoadingSkeletonData/>
-  if(isActive) return (
+  if(!isActive) return (
     <div>
       {
         formatData.filter(([v]) => v === month).map(([month, values]) => {
@@ -54,7 +54,6 @@ export function DisplaySaldo() {
       {
         formatData.map(([month, values]) => {
           const totals = getSumMonth(values)
-          console.log(totals);
           return (
             <Fragment key={month}>
               <span className="flex flex-col max-w-[500px] my-3 md:mx-auto">

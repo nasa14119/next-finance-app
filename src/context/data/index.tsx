@@ -24,7 +24,7 @@ export const DataConfig = ({children}: {children : ReactNode}) => {
       setAllMonths(false); 
       return 
     }
-    setAllMonths( Boolean(value))
+    setAllMonths(value === "true")
   },[])
   const toogleMonth = (value?:boolean) => {
     setAllMonths(prev =>{
