@@ -31,7 +31,7 @@ export function SideMenuMobile() {
     <>
       {!isOpen && (
         <button
-          className="*:pointer-events-none md:hidden fixed top-5 right-2 p-2 h-10 w-10 rounded-full bg-[#2a490f]"
+          className="*:pointer-events-none md:hidden fixed top-5 right-2 p-2 h-10 w-10 rounded-full bg-blend-green"
           onClick={handleClick}
         >
           <svg
@@ -54,14 +54,14 @@ export function SideMenuMobile() {
         <div className="fixed inset-0 z-40" onClick={handleClick}></div>
       )}
       <section
-        className="bg-black p-5 gap-y-4 z-50 flex flex-col md:hidden fixed inset-y-0 right-0 w-3/4  rounded-l-2xl translate-x-full transition-transform duration-500 ease-in"
+        className="bg-black p-5 gap-y-4 z-50 flex flex-col md:hidden fixed inset-y-0 right-0 w-3/4  rounded-l-2xl translate-x-full transition-transform duration-[400ms] ease-out"
         ref={container}
       > 
         {NavLinks.map((data) => (
-          <RowLink {...data} key={data.title} bg="bg-yellow"/>
+          <RowLink {...data} key={data.title} bg="bg-yellow/40"/>
         ))}
         {DATA_LINKS.map((data) => (
-          <RowLink {...data} key={data.title} bg="bg-[#599fa9]"/>
+          <RowLink {...data} key={data.title} bg="bg-[#599fa9]/40"/>
         ))}
         <ToggleAllMonths className="absolute bottom-5 right-2"/>
       </section>

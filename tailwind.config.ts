@@ -12,6 +12,7 @@ const config: Config = {
       'background': '#000000',
       'primary': '#39d9dc',
       'secondary': '#8ca208',
+      'blend-green': "#2a490f",
       'accent': '#8bf426',
       'dager': '#d62828', 
       'black': "#000000", 
