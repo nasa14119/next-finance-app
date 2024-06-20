@@ -9,7 +9,7 @@ export const InformationSection = () => {
   const gastos = useGastosData() as DataDisplay[] | null
   if(ingresos === null || gastos === null) return <LoadingSkeletonData /> 
   return (
-    <main className="grid grid-rows-2 grid-cols-1 *:rounded-[0.5rem] *:p-5 gap-y-2 animation-ease-in">
+    <main className="*:rounded-[0.5rem] *:p-2 size-full grid grid-rows-2 gap-y-2">
       <DisplayDatos type="ingresos" data={ingresos}/> 
       <DisplayDatos type="gasto" data={gastos}/> 
     </main>
