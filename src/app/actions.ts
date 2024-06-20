@@ -1,7 +1,5 @@
 'use server'
 
-import { useIngresosFijosData } from "src/context/app"
-
 type Data = {
   total: number, 
   value: number

@@ -1,7 +1,7 @@
 import { AgrupedDataValue } from "@components/data/sections/hooks/useAgrupatedMonthData";
 import moment from "moment";
 import "moment/locale/es"
-import { AhorroData } from "src/context/types";
+import { Data } from "src/context/types";
 
 export const getStringMonth = (m:number) => {
   moment.locale("es")

@@ -1,5 +1,5 @@
 
-export type ResponseIngreso = {
+export type ResponseApiData = {
   valor: number,
   dia_entrada: number,
   mes_entrada: number,
@@ -10,13 +10,13 @@ export type ResponseIngreso = {
   estado: number,
 }
 export type ResponseUseIngresosFijos = [
-  null | ResponseIngreso, 
+  null | ResponseApiData, 
   {
-    changeValue : (param: null | ResponseIngreso) => void,
+    changeValue : (param: null | ResponseApiData) => void,
     reFetchValues: () => void 
   }
 ]
-export type AhorroData = {
+export type Data = {
   id: string, 
   valor: number, 
   descripcion: string, 
@@ -24,34 +24,37 @@ export type AhorroData = {
   mes: number, 
   ano: number
 }
-export type GastoData = {
+export type newData = {
   valor: number, 
   descripcion: string, 
   dia: number, 
   mes: number, 
   ano: number
 }
-export type AhorroMethods = {
+export type useAhorroMethods = {
   pushNewValue : (value: AhorroNewValue) =>  void
 }
 export type useGastosReturn = [
-  GastoData[], 
+  Data[], 
   GastosMutations
 ]
 export type GastosMutations = {
-  pushNewValue: (value: GastoData) => void
+  pushNewValue: (value: newData) => void
 }
-export type ContextApp = {
-  ingresos_fijos: ResponseIngreso | null, 
-  setIngresosMethods: ResponseUseIngresosFijos[1], 
-  ahorro: [AhorroData[] | null, AhorroMethods],
-  gastos: GastoData[], 
-  setGastosMethods: GastosMutations
-}
+
 export type AhorroNewValue = {
   valor: number,
   descripcion: string,
   dia: number,
   mes: number,
   ano: number
+}
+
+export type ContextApp = {
+  ingresos_fijos: ResponseApiData | null, 
+  setIngresosMethods: ResponseUseIngresosFijos[1], 
+  ahorro: Data[], 
+  setAhorroMethods: useAhorroMethods, 
+  gastos: Data[], 
+  setGastosMethods: GastosMutations
 }

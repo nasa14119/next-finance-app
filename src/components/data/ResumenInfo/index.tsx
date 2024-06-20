@@ -3,9 +3,9 @@
 import moment from "moment"
 import { ResumenCol } from "./components/ResumenCol"
 import { useAgrupedByType } from "./hooks/useAgrupedByType"
-import { AhorroData } from "@context/types"
+import { Data } from "@context/types"
 
-const getSum = (data: AhorroData[]) => {
+const getSum = (data: Data[]) => {
   return data.reduce((prev, value) => prev +  value.valor , 0)
 }
 export function ResumenInfo() {

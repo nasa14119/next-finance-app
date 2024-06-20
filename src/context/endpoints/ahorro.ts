@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { AhorroData, AhorroNewValue, AhorroMethods as MutationsFuctions } from "../types";
+import { Data, useAhorroMethods as MutationsFuctions, newData } from "../types";
+import { useTrowError } from "@context/error";
 
 const getAhorros = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/ingreso`, {
@@ -8,9 +9,12 @@ const getAhorros = async () => {
     }, 
     method: "GET"
   })
+  if(res.status !== 200){
+    throw Error("Something went wrong")
+  }
   return await res.json()
 }
-const sendIngreso = async ({ body }: { body: AhorroNewValue }) => {
+const sendIngreso = async ({ body }: { body: newData }) => {
   return await fetch(`${process.env.NEXT_PUBLIC_DB}/ingreso`, {
     headers: {
       "Content-Type": "application/json"
@@ -20,18 +24,23 @@ const sendIngreso = async ({ body }: { body: AhorroNewValue }) => {
   })
 }
 export const useAhorro = () => {
-  const [state, setState] = useState<null | AhorroData[]>(null); 
+  const [state, setState] = useState<null | Data[]>(null);
+  const trowError = useTrowError()
   const Mutations: MutationsFuctions = {
-    pushNewValue : async (value: AhorroNewValue ) => {
+    pushNewValue: async (value: newData) => {
       setState(prev => {
-        if(prev === null) return null
-        return [...prev, {id: "preview", ...value}] as AhorroData[]
+        if (prev === null) return null
+        return [...prev, { id: "preview", ...value }] as Data[]
       })
-      const res = await sendIngreso({body:value})
-      const getData = getAhorros()
-      getData.then(v => {
-        setState(v)
-      })
+      try {
+        await sendIngreso({ body: value })
+      } catch (error) {
+        trowError("Hubo un error al enviar la información")
+        const getData = getAhorros()
+        getData.then(v => {
+          setState(v)
+        })
+      }
     }
   }
   useEffect(() =>{
@@ -41,5 +50,5 @@ export const useAhorro = () => {
     }
     goToServer(); 
   }, [])
-  return [state, Mutations] as [AhorroData[] | null, MutationsFuctions]
+  return [state, Mutations] as [Data[], MutationsFuctions]
 }

@@ -1,7 +1,7 @@
 "use client"
-import { AhorroData } from "@context/types";
+import { Data } from "@context/types";
 
-export function ResumenCol({ data }: { data: AhorroData[] }) {
+export function ResumenCol({ data }: { data: Data[] }) {
   return (
     <div className="flex flex-col gap-y-2">
       {data.map(v => (

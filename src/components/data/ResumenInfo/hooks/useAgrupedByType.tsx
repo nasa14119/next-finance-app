@@ -1,11 +1,11 @@
 import { useDataDB } from "@context/data"
-import { AhorroData } from "@context/types";
+import { Data } from "@context/types";
 import moment from "moment";
 import { groupBy } from "src/utils";
 const month = moment().get("M") + 1
 type ReturnedObejct = {
-  ingresos: AhorroData[], 
-  gastos: AhorroData[]
+  ingresos: Data[], 
+  gastos: Data[]
 } 
 export const useAgrupedByType = () : ReturnedObejct=> {
   const data = useDataDB()

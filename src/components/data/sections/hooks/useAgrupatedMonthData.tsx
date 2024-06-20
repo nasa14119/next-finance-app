@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { AhorroData } from "src/context/types"
+import { Data } from "src/context/types"
 import { getStringMonth, groupBy, sortByMonth } from "src/utils";
-export interface AgrupedDataValue extends AhorroData{
+export interface AgrupedDataValue extends Data{
   ingreso?: boolean, 
 }
 

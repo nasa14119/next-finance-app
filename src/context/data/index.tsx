@@ -1,6 +1,6 @@
 "use client"
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { AhorroData } from "../types";
+import { Data } from "../types";
 
 const initialMonths = null
 const Context = createContext({data: []}); 
@@ -8,7 +8,7 @@ type ValuesContexConfig = {
   allMonths: boolean | null;
   toogleMonth: (value?: boolean) => void;
 };
-const ContextConfig = createContext({allMonths: initialMonths, toogleMonth: () => {}}); 
+const ContextConfig = createContext({}); 
 export const DataContext = ({data, children}: {data:any, children : ReactNode}) => {
   const [state, setState] = useState(data);
   return <Context.Provider value={{data : state} as {data:any}}>
@@ -16,7 +16,7 @@ export const DataContext = ({data, children}: {data:any, children : ReactNode}) 
   </Context.Provider>
 }
 export const DataConfig = ({children}: {children : ReactNode}) => {
-  const [allMonths, setAllMonths] = useState<null | boolean>(initialMonths);
+  const [allMonths, setAllMonths] = useState<boolean | null>(initialMonths);
   useEffect(() => {
     const value = window.localStorage.getItem("toggle")
     if(value === null){
@@ -38,7 +38,7 @@ export const DataConfig = ({children}: {children : ReactNode}) => {
       }
     })
   }
-  const VALUES : ValuesContexConfig = {
+  const VALUES = {
     allMonths, 
     toogleMonth
   }
@@ -47,14 +47,14 @@ export const DataConfig = ({children}: {children : ReactNode}) => {
   </ContextConfig.Provider>
 }
 export const useAllMonths = () => {
-  const { allMonths } = useContext(ContextConfig)
+  const { allMonths } = useContext(ContextConfig) as ValuesContexConfig
   return allMonths
 }
 export const useToggleMonths =  () => {
-  const { toogleMonth } = useContext(ContextConfig)
+  const { toogleMonth } = useContext(ContextConfig) as ValuesContexConfig
   return toogleMonth
 }
 export const useDataDB = () => { 
   const { data } = useContext(Context)
-  return data as AhorroData[]
+  return data as Data[]
 }

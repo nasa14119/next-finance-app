@@ -1,6 +1,6 @@
 "use client"
 import { ReactNode, createContext, useContext } from "react";
-import { AhorroMethods, ContextApp, GastosMutations} from "../types";
+import { ContextApp, GastosMutations} from "../types";
 import {  useIngresosFijos } from "../endpoints/ingresos-fijos";
 import { useAhorro } from "../endpoints/ahorro";
 import { useGastos } from "../endpoints/gastos";
@@ -11,12 +11,13 @@ type Props = {
 export const Context = createContext<ContextApp | null>(null); 
 export function AppContext({children}: Props){
   const [ingresos_fijos, setIngresosMethods] = useIngresosFijos(); 
-  const ahorro = useAhorro()
+  const [ahorro, setAhorroMethods] = useAhorro()
   const [gastos, setGastosMethods] = useGastos(); 
   const VALUES: ContextApp = {
     ingresos_fijos, 
     setIngresosMethods,
     ahorro, 
+    setAhorroMethods,
     gastos, 
     setGastosMethods
   }
@@ -37,12 +38,12 @@ export const useIngresosFijosMethods = () => {
 export const useAhorroData = () => {
   const contextData = useContext(Context);
   if(contextData === null) return null
-  return contextData.ahorro[0]
+  return contextData.ahorro
 }
 export const useAhorroMethods = () => {
   const contextData = useContext(Context);
   if(contextData === null) return null
-  return contextData.ahorro[1] as AhorroMethods
+  return contextData.setAhorroMethods
 }
 export const useGastosData = () => {
   const contextData = useContext(Context);
