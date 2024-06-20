@@ -1,17 +1,16 @@
 "use client"
-import { ReactNode, createContext, useContext, useEffect, useReducer, useState } from "react";
+import { ReactNode, createContext, useContext } from "react";
 import { AhorroMethods, ContextApp, GastosMutations} from "../types";
-import {  useIngresosFijos, usePaymentMethods } from "../endpoints/ingresos-fijos";
+import {  useIngresosFijos } from "../endpoints/ingresos-fijos";
 import { useAhorro } from "../endpoints/ahorro";
 import { useGastos } from "../endpoints/gastos";
-import { useError } from "@components/ErrorMessage/useError";
+
 type Props = {
   children: ReactNode, 
 }
 export const Context = createContext<ContextApp | null>(null); 
 export function AppContext({children}: Props){
   const [ingresos_fijos, setIngresosMethods] = useIngresosFijos(); 
-  const [ErrorMessage, trowError] = useError({duration: 1000}); 
   const ahorro = useAhorro()
   const [gastos, setGastosMethods] = useGastos(); 
   const VALUES: ContextApp = {
