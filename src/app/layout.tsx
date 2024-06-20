@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { AppContext } from "src/context/app";
 import { ErrorContextProvider } from "src/context/error";
-import { revalidatePath } from "next/cache";
 
 const popins = Poppins({
   weight: "400",
@@ -33,14 +31,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  revalidatePath("/data", "layout")
   return (
     <html lang="es">
       <body className={popins.className}>
         <ErrorContextProvider>
-          <AppContext>
             {children}
-          </AppContext>
         </ErrorContextProvider>
       </body>
     </html>
