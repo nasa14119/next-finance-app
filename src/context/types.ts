@@ -8,6 +8,7 @@ export type ResponseApiData = {
   isPay: boolean, 
   time_delay: number,
   estado: number,
+  type: "ingreso" | "gasto",  
 }
 export type ResponseUseIngresosFijos = [
   null | ResponseApiData, 
@@ -20,6 +21,7 @@ export type Data = {
   id: string, 
   valor: number, 
   descripcion: string, 
+  type: "ingreso" | "gasto",  
   dia: number, 
   mes: number, 
   ano: number

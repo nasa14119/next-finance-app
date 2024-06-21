@@ -1,15 +1,16 @@
 "use client"
 
 import { Fragment} from "react";
-import { AgrupedDataValue, useAgrupatedMonthData } from "./hooks/useAgrupatedMonthData";
+import { useAgrupatedMonthData } from "./hooks/useAgrupatedMonthData";
 import SaldoRow from "./SaldoRow";
 import { useAllMonths, useDataDB } from "@context/data/index";
 import { LoadingSkeletonData } from "../LoadingSkeletonData";
 import moment from "moment";
-const getSumMonth = (data: AgrupedDataValue[]) => {
+import { Data } from "@context/types";
+const getSumMonth = (data: Data[]) => {
   const inicialValue = {total: 0, ingresos: 0, gastos: 0}
   return data.reduce((prev: typeof inicialValue, v) => {
-    if(v.ingreso){
+    if(v.type === "ingreso"){
       prev.total += v.valor 
       prev.ingresos +=v.valor
     }else{
@@ -22,7 +23,7 @@ const getSumMonth = (data: AgrupedDataValue[]) => {
 const month = moment().format("MMMM"); 
 export function DisplaySaldo() {
   const isActive = useAllMonths()
-  const data : AgrupedDataValue[] = useDataDB(); 
+  const data : Data[] = useDataDB(); 
   const formatData = useAgrupatedMonthData(data);
   if(isActive === null ) return <LoadingSkeletonData/>
   if(!isActive) return (
@@ -41,7 +42,7 @@ export function DisplaySaldo() {
                 </div>
               </span>
               <div className="flex gap-y-2 justify-start flex-col max-w-[500px] md:mx-auto text-sm">
-                {values?.map(value => <SaldoRow value={value} ingreso={value.ingreso} key={value.id}/>)}
+                {values?.map(value => <SaldoRow value={value} key={value.id}/>)}
               </div>
             </Fragment>
           ) 
@@ -65,7 +66,7 @@ export function DisplaySaldo() {
                 </div>
               </span>
               <div className="flex gap-y-2 justify-start flex-col max-w-[500px] md:mx-auto text-sm">
-                {values?.map(value => <SaldoRow value={value} ingreso={value.ingreso} key={value.id}/>)}
+                {values?.map(value => <SaldoRow value={value} key={value.id}/>)}
               </div>
             </Fragment>
           ) 

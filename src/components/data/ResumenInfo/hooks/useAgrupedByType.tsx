@@ -10,7 +10,7 @@ type ReturnedObejct = {
 export const useAgrupedByType = () : ReturnedObejct=> {
   const data = useDataDB()
   const filterThisMonth = data.filter(v => v.mes === month)
-  const agrupedData = groupBy(filterThisMonth, (value:any) => value.ingreso ? "ingresos" : "gastos")
+  const agrupedData = groupBy(filterThisMonth, (value:Data) => value.type === "ingreso" ? "ingresos": "gastos")
   return agrupedData
 }
 
