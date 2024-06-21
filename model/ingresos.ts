@@ -2,9 +2,10 @@ import { db } from "../db"
 import { Ingreso } from "../routes/ingresos";
 import { getMonth } from "../utils";
 
-export const getIngresosData = () : Ingreso[] =>{
+export const getIngresosData = () : Ingreso[] => {
   const res = db.query("SELECT * FROM agregar_ingresos"); 
-  return res.all() as Ingreso[]; 
+  const values = res.all() as Ingreso[]
+  return values.map(v => ({...v, type:"ingreso"})); 
 }
 export const getIngresoData = (id: string) => {
   const query = db.query(`

@@ -3,8 +3,9 @@ import { Gasto } from "../routes/gastos";
 import { getMonth } from "../utils";
 
 export const getGastos = () : Gasto[] =>{
-  const res = db.query("SELECT * FROM gastos"); 
-  return res.all() as Gasto[]; 
+  const res = db.query("SELECT * FROM gastos");
+  const values  = res.all() as Gasto[] 
+  return values.map(v => ({...v, type:"gasto"})); 
 }
 export const getGasto = (id: string) => {
   const query = db.query(`
