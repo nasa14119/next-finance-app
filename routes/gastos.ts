@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { changeDate, changeDescripcion,  changeGasto,  changeValor, createGasto, deleteGasto, getGastos } from "../model/gastos";
+import { changeDate, changeDescripcion,  changeGasto,  changeValor, createGasto, deleteGasto, getGasto, getGastos } from "../model/gastos";
 import { z } from "zod";
 import { DataPutSchema } from "./types";
 const app = Router(); 
@@ -11,12 +11,16 @@ const Gasto = z.object({
   mes: z.number(), 
   ano: z.number()
 })
-export type Gasto = z.infer<typeof Gasto>
+export type Gasto = z.infer<typeof Gasto>; 
 app.get("/", (req, res) => {
   const gastos = getGastos(); 
   res.status(200).send(gastos); 
 })
-
+app.get("/:id", (req, res) => {
+  const gasto = getGasto(req.params.id); 
+  if(gasto === null) return res.sendStatus(404); 
+  res.status(200).send(gasto)
+})
 app.post("/" , (req, res) => {
   const check = Gasto.safeParse(req.body); 
   if("error" in check){
@@ -25,6 +29,7 @@ app.post("/" , (req, res) => {
   const newGasto = createGasto(req.body); 
   return res.status(200).send(newGasto); 
 })
+
 const PayloadDateShema = z.object({
   id: z.string(), 
   dia: z.number(), 
