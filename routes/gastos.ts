@@ -1,6 +1,7 @@
 import { Router } from "express"
-import { changeDate, changeDescripcion, changeValor, createGasto, deleteGasto, getGastos } from "../model/gastos";
+import { changeDate, changeDescripcion,  changeGasto,  changeValor, createGasto, deleteGasto, getGastos } from "../model/gastos";
 import { z } from "zod";
+import { DataPutSchema } from "./types";
 const app = Router(); 
 const Gasto = z.object({
   id: z.string().optional(), 
@@ -73,6 +74,18 @@ app.put("/descripcion", (req, res) =>{
     return res.status(200).send(newGastoValue); 
   } catch (error) {
     res.status(404).send({error})
+  }
+})
+app.put("/" , (req, res) => {
+  const check = DataPutSchema.safeParse(req.body); 
+  if("error" in check){
+    return res.status(400).send(check.error.errors); 
+  }
+  try {
+    const newValue = changeGasto(req.body)
+    res.status(200).send(newValue); 
+  } catch (error) {
+    res.sendStatus(404); 
   }
 })
 const PayloadDeleteShema = z.object({

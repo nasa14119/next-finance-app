@@ -1,5 +1,6 @@
 import { db } from "../db"
 import { Gasto } from "../routes/gastos";
+import { DataPut, DataWithId } from "../routes/types";
 import { getMonth } from "../utils";
 
 export const getGastos = () : Gasto[] =>{
@@ -7,11 +8,11 @@ export const getGastos = () : Gasto[] =>{
   const values  = res.all() as Gasto[] 
   return values.map(v => ({...v, type:"gasto"})); 
 }
-export const getGasto = (id: string) => {
+export const getGasto = (id: string): DataWithId => {
   const query = db.query(`
     SELECT * FROM gastos WHERE id = $id
   `)
-  return query.get({$id: id}) as Gasto; 
+  return query.get({$id: id}) as DataWithId; 
 }
 
 export const createGasto = (gasto : Gasto) => {
@@ -100,7 +101,26 @@ export const changeDescripcion = (gasto : PayloadDescripcion) => {
   query.run(newGasto); 
   return getGasto(gasto.id); 
 }
-
+export const changeGasto = (gasto: DataPut): DataWithId => {
+  if(getGasto(gasto.id) === null) throw 404
+  const query = db.prepare(`
+      UPDATE gastos
+      SET 
+      valor = $valor,
+      descripcion = $descripcion, 
+      dia = $dia, mes = $mes, ano = $ano
+      WHERE id = $id
+    `)
+  const newValue = {
+    $valor: gasto.valor, 
+    $descripcion: gasto.descripcion, 
+    $dia: gasto.dia, 
+    $mes: gasto.mes, 
+    $ano: gasto.ano
+  }
+  query.run({...newValue, $id:gasto.id})
+  return getGasto(gasto.id); 
+}
 export const deleteGasto = (id: string) => {
   if(!id) throw "No id was provided"
   const isNotFound = getGasto(id) === null; 
