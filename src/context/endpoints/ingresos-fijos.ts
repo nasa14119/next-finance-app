@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ResponseIngreso, ResponseUseIngresosFijos } from "../types"
+import { ResponseApiData, ResponseUseIngresosFijos } from "../types"
 import { useIngresosFijosMethods } from "../app"
 import { useTrowError } from "../error"
 
@@ -13,7 +13,7 @@ export const getIngresos = async () =>{
   return await res.json()
 }
 export const useIngresosFijos = () : ResponseUseIngresosFijos => {
-  const [ingresos_fijos, setIngresosFijos] = useState<null | ResponseIngreso>(null); 
+  const [ingresos_fijos, setIngresosFijos] = useState<null | ResponseApiData>(null); 
   useEffect(() =>{
     const goToServer = async () =>{
       const res = await getIngresos()
@@ -21,7 +21,7 @@ export const useIngresosFijos = () : ResponseUseIngresosFijos => {
     }    
     goToServer()
   }, [])
-  const changeValue = (value: null | ResponseIngreso) => {
+  const changeValue = (value: null | ResponseApiData) => {
     setIngresosFijos(value)
   }
   const reFetchValues = async () =>{

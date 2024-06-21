@@ -1,9 +1,8 @@
 import moment from "moment";
 import { usePaymentMethods } from "src/context/endpoints/ingresos-fijos";
 import {BtnPagoRecibido,BtnPagoRecibidoWithDelay, BtnUndoPagoRecibido} from "./Btn"
-import { useIngresosFijosData } from "src/context/app";
 import { PillNumber } from "./PillNumber";
-import { ResponseIngreso } from "src/context/types";
+import { ResponseApiData } from "@context/types";
 
 const DangerPill = ({time}: {time:number}) => (
   <div className="flex justify-end gap-x-2 group relative cursor-pointer z-50">
@@ -25,7 +24,7 @@ const AlertPill = ({time} : {time:number}) => {
   </div>)
 }
 
-export default function DiasFaltantes({data}: {data:ResponseIngreso}){
+export default function DiasFaltantes({data}: {data: ResponseApiData}){
   const time = moment({day: data.dia_entrada, month: data.mes_entrada})
   const isPass = moment().isAfter(time)
   const daysRetraso = time.diff(moment(), "days")
