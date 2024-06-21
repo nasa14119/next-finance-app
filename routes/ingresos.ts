@@ -1,6 +1,7 @@
 import { Router } from "express"
-import {changeDate,changeDescripcion,changeValor,createIngreso, deleteIngreso, getIngresosData, sumIngresosMes } from "../model/ingresos";
+import {changeDate,changeDescripcion,changeIngreso,changeValor,createIngreso, deleteIngreso, getIngresosData, sumIngresosMes } from "../model/ingresos";
 import { z } from "zod";
+import { DataPutSchema } from "./types";
 const app = Router(); 
 const Ingreso = z.object({
   id: z.string().optional(), 
@@ -29,6 +30,18 @@ const PayloadDateShema = z.object({
   dia: z.number(), 
   mes: z.number(), 
   ano: z.number()
+})
+app.put("/", (req, res) => {
+  const check = DataPutSchema.safeParse(req.body)
+  if("error" in check){
+    return res.status(400).send(check.error.errors); 
+  }
+  try {
+    const newValue = changeIngreso(req.body)
+    res.status(200).send(newValue); 
+  } catch (error) {
+    res.sendStatus(404); 
+  }
 })
 app.put("/date", (req, res) =>{
   const check = PayloadDateShema.safeParse(req.body); 

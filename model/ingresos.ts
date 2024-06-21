@@ -1,5 +1,6 @@
 import { db } from "../db"
 import { Ingreso } from "../routes/ingresos";
+import { DataPut, DataWithId } from "../routes/types";
 import { getMonth } from "../utils";
 
 export const getIngresosData = () : Ingreso[] => {
@@ -11,7 +12,7 @@ export const getIngresoData = (id: string) => {
   const query = db.query(`
     SELECT * FROM agregar_ingresos WHERE id = $id
   `)
-  return query.get({$id: id}) as Ingreso; 
+  return query.get({$id: id}) as DataWithId; 
 }
 
 export const createIngreso = (ingreso : Ingreso) => {
@@ -100,7 +101,26 @@ export const changeDescripcion = (ingreso : PayloadDescripcion) => {
   query.run(newValue); 
   return getIngresoData(ingreso.id); 
 }
-
+export const changeIngreso = (ingreso: DataPut): DataWithId => {
+  if(getIngresoData(ingreso.id) === null) throw 404
+  const query = db.prepare(`
+      UPDATE agregar_ingresos
+      SET 
+      valor = $valor,
+      descripcion = $descripcion, 
+      dia = $dia, mes = $mes, ano = $ano
+      WHERE id = $id
+    `)
+  const newValue = {
+    $valor: ingreso.valor, 
+    $descripcion: ingreso.descripcion, 
+    $dia: ingreso.dia, 
+    $mes: ingreso.mes, 
+    $ano: ingreso.ano
+  }
+  query.run({...newValue, $id:ingreso.id})
+  return getIngresoData( ingreso.id ); 
+}
 export const deleteIngreso = (id: string) => {
   if(!id) throw "No id was provided"
   const isNotFound = getIngresoData(id) === null; 
