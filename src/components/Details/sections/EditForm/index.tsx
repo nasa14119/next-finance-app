@@ -1,9 +1,15 @@
 "use client"
+import { sendEditedData } from "@components/Details/enpoints";
+import { useTrowError } from "@context/error";
 import { Data } from "@context/types";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getFormatedNumber, removeNonNumeric } from "src/utils";
 
 export function EditForm({data}: {data:Data}) {
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const throwError = useTrowError();
   const [titulo, setTitulo] = useState(data.descripcion)
   const [valor, setValor] = useState<string>(getFormatedNumber(data.valor.toString()))
   const [fecha, setFecha] = useState({
@@ -11,25 +17,41 @@ export function EditForm({data}: {data:Data}) {
     mes: data.mes, 
     ano: data.ano
   })
-  const ParsedValues = {
-    value : Number(removeNonNumeric(valor)), 
+  const ParsedValues : Data = {
+    id: data.id, 
+    valor : Number(removeNonNumeric(valor)), 
     descripcion: titulo,
     dia: fecha.dia,
     mes: fecha.mes,
     ano: fecha.ano, 
+    type: data.type
   }
   const check = [
     titulo === data.descripcion,
-    ParsedValues.value === data.valor,
+    ParsedValues.valor === data.valor,
     ParsedValues.dia === data.dia,
     ParsedValues.mes === data.mes,
     ParsedValues.ano === data.ano,
   ];
+  const handleSubmit = async () => {
+    const URL = data.type === "ingreso" ? "ingresos": "gastos"
+    try {
+      setLoading(true); 
+      await sendEditedData(URL, ParsedValues ); 
+      router.push(`/data/${data.type}s`)
+      setLoading(false)
+
+    } catch (error) {
+      throwError("Error al enviar los cambios al servidor"); 
+      setLoading(false)
+    }
+  }
   return (
     <form
       className="flex flex-col gap-y-4 max-w-[500px] md:mx-auto h-full justify-center"
       onSubmit={(e) => {
         e.preventDefault();
+        handleSubmit(); 
       }}
     >
       <label htmlFor="titulo" className="text-xl flex flex-col">
@@ -42,7 +64,7 @@ export function EditForm({data}: {data:Data}) {
           placeholder=" "
           value={titulo}
           onChange={(e) => {
-            setTitulo(e.target.value)
+            setTitulo(e.target.value);
           }}
         />
       </label>
@@ -57,7 +79,7 @@ export function EditForm({data}: {data:Data}) {
           value={valor}
           onChange={(e) => {
             let parseValue = getFormatedNumber(e.target.value);
-            setValor(parseValue); 
+            setValor(parseValue);
           }}
         />
       </label>
@@ -75,7 +97,7 @@ export function EditForm({data}: {data:Data}) {
               placeholder="DD"
               value={fecha.dia}
               onChange={(e) => {
-                setFecha((prev) => ({ ...prev, dia: Number(e.target.value)}))
+                setFecha((prev) => ({ ...prev, dia: Number(e.target.value) }));
               }}
             />
           </label>
@@ -90,7 +112,7 @@ export function EditForm({data}: {data:Data}) {
               placeholder="MM"
               value={fecha.mes}
               onChange={(e) => {
-                setFecha((prev) => ({ ...prev, mes: Number(e.target.value)}))
+                setFecha((prev) => ({ ...prev, mes: Number(e.target.value) }));
               }}
             />
           </label>
@@ -104,16 +126,49 @@ export function EditForm({data}: {data:Data}) {
               placeholder="YYYY"
               value={fecha.ano}
               onChange={(e) => {
-                setFecha((prev) => ({ ...prev, ano: Number(e.target.value)}))
+                setFecha((prev) => ({ ...prev, ano: Number(e.target.value) }));
               }}
             />
           </label>
         </div>
       </div>
-      <button type="submit" className={`transition duration-150 ease-out text-lg p-2 rounded-2xl disabled:text-white/20  ${data.type=== "ingreso" ? "bg-secondary/30 disabled:bg-secondary/20": "bg-dager/30 disabled:bg-dager/20"}`}
-        disabled={check.every(Boolean)}
+      <button
+        type="submit"
+        className={`transition duration-150 ease-out text-lg p-2 rounded-2xl disabled:text-white/20  ${
+          data.type === "ingreso"
+            ? "bg-secondary/30 disabled:bg-secondary/20"
+            : "bg-dager/30 disabled:bg-dager/20"
+        }`}
+        disabled={check.every(Boolean) || loading}
       >
-        Actualizar
+        {loading ? (
+            <svg
+              className="text-white/30 animate-spin mx-auto"
+              viewBox="0 0 64 64"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+            >
+              <path
+                d="M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z"
+                stroke="currentColor"
+                strokeWidth="5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></path>
+              <path
+                d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
+                stroke="currentColor"
+                strokeWidth="5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-white"
+              ></path>
+            </svg>
+        ) : (
+          "Actualizar"
+        )}
       </button>
     </form>
   );

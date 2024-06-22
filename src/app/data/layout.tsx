@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import { ErrorContextProvider } from "src/context/error";
 import { SideMenu } from "../../components/data/SideMenu";
 import "../globals.css"
@@ -7,11 +6,6 @@ import "@assets/css/data.css"
 import Error from "@components/app/Error";
 import { DataConfig } from "@context/data";
 import { Suspense } from "react";
-
-const popins = Poppins({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Finanzas App",
@@ -37,20 +31,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body className={popins.className}>
-        <div className="data-layout">
-          <Suspense>
-            <DataConfig>
-              <SideMenu />
-              <div className="md:h-screen md:overflow-y-scroll">
-                <ErrorContextProvider>{children}</ErrorContextProvider>
-              </div>
-            </DataConfig>
-          </Suspense>
-        </div>
-        <Error />
-      </body>
-    </html>
+    <>
+      <div className="data-layout">
+        <Suspense>
+          <DataConfig>
+            <SideMenu />
+            <div className="md:h-screen md:overflow-y-scroll">
+              <ErrorContextProvider>{children}</ErrorContextProvider>
+            </div>
+          </DataConfig>
+        </Suspense>
+      </div>
+      <Error />
+    </>
   );
 }
