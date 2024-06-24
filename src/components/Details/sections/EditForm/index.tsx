@@ -38,11 +38,10 @@ export function EditForm({data}: {data:Data}) {
     try {
       setLoading(true); 
       await sendEditedData(URL, ParsedValues ); 
-      router.push(`/data/${data.type}s`)
-      setLoading(false)
-
+      router.refresh(); 
     } catch (error) {
       throwError("Error al enviar los cambios al servidor"); 
+    } finally {
       setLoading(false)
     }
   }
