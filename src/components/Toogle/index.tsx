@@ -6,13 +6,14 @@ interface Props extends HtmlHTMLAttributes<HTMLButtonElement> {
 }
 interface PropsToggle  extends Props{
   children: ReactNode,
-  state: boolean, 
+  state: boolean | null, 
   setState: (v?:boolean) => void
 }
 export function Toggle({ className, children, state, setState,...rest }: PropsToggle) {
   "use client"
   const [isActive, setActive] = useState(false); 
   useEffect(() => {
+    if(state === null) return 
     setActive(state); 
   },[state])
   return (
