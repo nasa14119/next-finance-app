@@ -1,5 +1,5 @@
 import { Router } from "express"
-import {changeDate,changeDescripcion,changeIngreso,changeValor,createIngreso, deleteIngreso, getIngresosData, sumIngresosMes } from "../model/ingresos";
+import {changeDate,changeDescripcion,changeIngreso,changeValor,createIngreso, deleteIngreso, getIngresoData, getIngresosData, sumIngresosMes } from "../model/ingresos";
 import { z } from "zod";
 import { DataPutSchema } from "./types";
 const app = Router(); 
@@ -11,12 +11,16 @@ const Ingreso = z.object({
   mes: z.number(), 
   ano: z.number()
 })
-export type Ingreso = z.infer<typeof Ingreso>
+export type Ingreso = z.infer<typeof Ingreso>;
 app.get("/", (req, res) => {
   const values = getIngresosData(); 
   res.status(200).send(values); 
 })
-
+app.get("/:id", (req, res) => {
+  const ingreso = getIngresoData(req.params.id); 
+  if(ingreso === null) return res.sendStatus(404); 
+  res.status(200).send(ingreso)
+})
 app.post("/" , (req, res) => {
   const check = Ingreso.safeParse(req.body); 
   if("error" in check){

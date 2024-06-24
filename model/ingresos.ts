@@ -12,7 +12,8 @@ export const getIngresoData = (id: string) => {
   const query = db.query(`
     SELECT * FROM agregar_ingresos WHERE id = $id
   `)
-  return query.get({$id: id}) as DataWithId; 
+  const db_values = query.get({$id: id}) as DataWithId
+  return {...db_values, type: "ingreso"} ; 
 }
 
 export const createIngreso = (ingreso : Ingreso) => {

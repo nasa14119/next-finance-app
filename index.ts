@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/ingresos-fijos", ingresos_fijos); 
-app.use("/ingreso", ingresoData); 
+app.use("/ingresos", ingresoData); 
 app.use("/metas", metas); 
 app.use("/gastos", gastos); 
 
