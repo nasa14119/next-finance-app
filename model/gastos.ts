@@ -12,7 +12,8 @@ export const getGasto = (id: string): DataWithId => {
   const query = db.query(`
     SELECT * FROM gastos WHERE id = $id
   `)
-  return query.get({$id: id}) as DataWithId; 
+  const valueDb = query.get({$id: id}) as DataWithId; 
+  return {...valueDb, type: "gasto"} as DataWithId; 
 }
 
 export const createGasto = (gasto : Gasto) => {
