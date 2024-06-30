@@ -6,6 +6,7 @@ import { useAgrupedByType } from "./hooks/useAgrupedByType"
 import { Data } from "@context/types"
 
 const getSum = (data: Data[]) => {
+  if(!data || data.length === 0) return 0
   return data.reduce((prev, value) => prev +  value.valor , 0)
 }
 export function ResumenInfo() {

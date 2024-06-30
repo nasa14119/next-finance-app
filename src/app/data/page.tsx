@@ -4,12 +4,13 @@ import { Header } from "@components/data/Header";
 import { LoadingSkeletonData } from "@components/data/LoadingSkeletonData";
 import { ResumenInfo } from "@components/data/ResumenInfo";
 import { DisplaySaldo } from "@components/data/sections/DisplaySaldo";
+import { Data } from "@context/types";
 import { Suspense } from "react";
 import { DataContext } from "src/context/data";
 import { getSaldo } from "src/context/data/enpoints";
 
 export default async function Home() {
-  const data = await getSaldo()
+  const data = await getSaldo() as unknown as Data[]
 
   return (
     <>
@@ -24,7 +25,7 @@ export default async function Home() {
             </Suspense>
           </section>
         </main>
-        <Error />
+        {/* <Error /> */}
     </>
   );
 }

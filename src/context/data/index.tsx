@@ -1,60 +1,59 @@
 "use client"
-import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { Data } from "../types";
+import { Data } from "@context/types";
+import { ReactNode, createContext, useContext, useRef } from "react";
+import { create, createStore, useStore } from "zustand";
+import { persist } from "zustand/middleware";
 
 const initialMonths = null
-const Context = createContext({data: []}); 
-type ValuesContexConfig = {
-  allMonths: boolean | null;
-  toogleMonth: (value?: boolean) => void;
-};
-const ContextConfig = createContext({}); 
-export const DataContext = ({data, children}: {data:any, children : ReactNode}) => {
-  const [state, setState] = useState(data);
-  return <Context.Provider value={{data : state} as {data:any}}>
-    {children}
-  </Context.Provider>
+
+type PersistContext = {
+  allMonths: boolean | null, 
+  toogleMonth: () => void
 }
-export const DataConfig = ({children}: {children : ReactNode}) => {
-  const [allMonths, setAllMonths] = useState<boolean | null>(initialMonths);
-  useEffect(() => {
-    const value = window.localStorage.getItem("toggle")
-    if(value === null){
-      window.localStorage.setItem("toggle", "false")
-      setAllMonths(false); 
-      return 
-    }
-    setAllMonths(value === "true")
-  },[])
-  const toogleMonth = (value?:boolean) => {
-    setAllMonths(prev =>{
-      const newValue = !prev
-      if (typeof value === "undefined") {
-        localStorage.setItem("toggle", newValue.toString())
-        return newValue
-      } else {
-        localStorage.setItem("toggle", value.toString())
-        return value
-      }
-    })
-  }
-  const VALUES = {
-    allMonths, 
-    toogleMonth
-  }
-  return <ContextConfig.Provider value={VALUES}>
-    {children}
-  </ContextConfig.Provider>
-}
+
+const usePersistContext = create(
+  persist<PersistContext>(
+    (set, get) => ({
+      allMonths: initialMonths,
+      toogleMonth: () => set({ allMonths: !get().allMonths }),
+    }),
+    { name: "config-toogle" }
+  )
+);
+
 export const useAllMonths = () => {
-  const { allMonths } = useContext(ContextConfig) as ValuesContexConfig
-  return allMonths
+  const values = usePersistContext().allMonths; 
+  return values
 }
 export const useToggleMonths =  () => {
-  const { toogleMonth } = useContext(ContextConfig) as ValuesContexConfig
-  return toogleMonth
+  const values = usePersistContext().toogleMonth
+  return values
 }
-export const useDataDB = () => { 
-  const { data } = useContext(Context)
-  return data as Data[]
+type DataStore = {
+  data: Data[] | null, 
+}
+type ReactStore = ReturnType<typeof createDataStore>
+const ReactDataContext = createContext<ReactStore | null>(null)
+const createDataStore = (initProps: Data[]) => {
+  const DEFAULT_VALUES : DataStore = {
+    data:[]
+  }
+  return createStore<DataStore>()(() => ({...DEFAULT_VALUES, data: [...initProps]}))
+}
+type Props = {
+  children : ReactNode, 
+  data: Data[]
+}
+export const DataContext = ({children, data}:Props) => {
+  const store:ReactStore = useRef(createDataStore(data)).current
+  return (
+    <ReactDataContext.Provider value={store}>
+      {children}
+    </ReactDataContext.Provider>
+  )
+}
+export const useDataDB = () => {
+  const context = useContext(ReactDataContext); 
+  if(!context) throw Error("Missing DataContext provider")
+  return useStore(context).data as Data[]; 
 }

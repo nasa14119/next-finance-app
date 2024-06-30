@@ -4,7 +4,6 @@ import { SideMenu } from "../../components/data/SideMenu";
 import "../globals.css"
 import "@assets/css/data.css"
 import Error from "@components/app/Error";
-import { DataConfig } from "@context/data";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -34,12 +33,10 @@ export default function RootLayout({
     <>
       <div className="data-layout">
         <Suspense>
-          <DataConfig>
             <SideMenu />
             <div className="md:h-screen md:overflow-y-scroll">
               <ErrorContextProvider>{children}</ErrorContextProvider>
             </div>
-          </DataConfig>
         </Suspense>
       </div>
       <Error />
