@@ -87,7 +87,7 @@ export function EditForm({data}: {data:Data}) {
         <div className="max-w-full my-2 grid [grid-template-columns:25%_25%_1fr] text-base gap-x-2">
           <label htmlFor="dia" className="">
             <input
-              className="w-full text-center rounded-2xl bg-text/20 outline-none p-2 caret-text/30"
+              className="w-full text-center rounded-2xl bg-text/20 outline-none p-2 caret-text/30 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               type="number"
               name="dia"
               id="dia"
@@ -102,7 +102,7 @@ export function EditForm({data}: {data:Data}) {
           </label>
           <label htmlFor="mes" className="">
             <input
-              className="w-full text-center rounded-2xl bg-text/20 outline-none p-2 caret-text/30"
+              className="w-full text-center rounded-2xl bg-text/20 outline-none p-2 caret-text/30 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               type="number"
               name="mes"
               id="mes"
@@ -117,7 +117,7 @@ export function EditForm({data}: {data:Data}) {
           </label>
           <label htmlFor="ano" className="">
             <input
-              className="w-full text-center rounded-2xl bg-text/20 outline-none p-2 caret-text/30"
+              className="w-full text-center rounded-2xl bg-text/20 outline-none p-2 caret-text/30 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               type="number"
               name="ano"
               id="ano"
