@@ -25,7 +25,7 @@ export default async function Home() {
             </Suspense>
           </section>
         </main>
-        {/* <Error /> */}
+        <Error />
     </>
   );
 }

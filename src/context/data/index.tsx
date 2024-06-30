@@ -31,14 +31,21 @@ export const useToggleMonths =  () => {
 }
 type DataStore = {
   data: Data[] | null, 
+  deleteId: (v:Data["id"]) => void 
 }
 type ReactStore = ReturnType<typeof createDataStore>
 const ReactDataContext = createContext<ReactStore | null>(null)
 const createDataStore = (initProps: Data[]) => {
-  const DEFAULT_VALUES : DataStore = {
+  const DEFAULT_VALUES = {
     data:[]
   }
-  return createStore<DataStore>()(() => ({...DEFAULT_VALUES, data: [...initProps]}))
+  return createStore<DataStore>()((set, get) => ({...DEFAULT_VALUES, data: [...initProps], deleteId : (id:Data["id"]) => {
+    const state = get().data
+    if(!state) throw Error("No data available")
+    if(!state.some(v => v.id === id)) throw Error("Id is not found")
+    const filter = state.filter(v => v.id !== id)
+    set({data: [...filter]})
+  }}))
 }
 type Props = {
   children : ReactNode, 
@@ -56,4 +63,10 @@ export const useDataDB = () => {
   const context = useContext(ReactDataContext); 
   if(!context) throw Error("Missing DataContext provider")
   return useStore(context).data as Data[]; 
+}
+export const useDeleteFromId = () => {
+  const context = useContext(ReactDataContext); 
+  if(!context) throw Error("Missing DataContext provider")
+  const deleteContext = context.getState().deleteId; 
+  return deleteContext
 }
