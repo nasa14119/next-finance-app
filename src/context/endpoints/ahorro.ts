@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Data, useAhorroMethods as MutationsFuctions, newData } from "../types";
 import { useTrowError } from "@context/error";
+import { useRouter } from "next/navigation";
 
 const getAhorros = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/ingreso`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/ingresos`, {
     headers: {
       "Content-Type": "application/json"
     }, 
@@ -26,6 +27,7 @@ const sendIngreso = async ({ body }: { body: newData }) => {
 export const useAhorro = () => {
   const [state, setState] = useState<null | Data[]>(null);
   const trowError = useTrowError()
+  const { refresh } =useRouter()
   const Mutations: MutationsFuctions = {
     pushNewValue: async (value: newData) => {
       setState(prev => {
@@ -34,6 +36,7 @@ export const useAhorro = () => {
       })
       try {
         await sendIngreso({ body: value })
+        refresh(); 
       } catch (error) {
         trowError("Hubo un error al enviar la información")
         const getData = getAhorros()

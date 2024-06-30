@@ -1,7 +1,7 @@
 import { ResponseApiData } from "@context/types"
 
 export const getAhorros = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/ingreso`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/ingresos`, {
     headers: {
       "Content-Type": "application/json"
     }, 
