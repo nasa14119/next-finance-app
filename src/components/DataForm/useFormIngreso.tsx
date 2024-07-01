@@ -41,3 +41,27 @@ export function useFormIngreso(){
   )
   return [Element, handleState] as [() => JSX.Element, typeof handleState]; 
 }
+export function useFormNewIngresoPage(){
+  const [Modal, openModal] = useModal(); 
+  const handleState = (value ?: boolean) => {
+    if(typeof value === "undefined"){
+      openModal(); 
+      return
+    }
+    openModal(value); 
+  }
+  const handleSubmit:ReturnHandleSumit = (v) => {
+    const {success, error} = SchemaNewValue.safeParse(v)
+    if(!success){
+      console.error(error.errors);
+      return [error.errors[0].message]
+    }
+    return ["Error"]
+  }; 
+  const Element = () => (
+    <Modal>
+      <FormDataGastos handleModal={handleState} title='Ingresos' handleSubmit={handleSubmit}/> 
+    </Modal>
+  )
+  return [Element, handleState] as [() => JSX.Element, typeof handleState]; 
+}

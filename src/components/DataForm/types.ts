@@ -8,7 +8,7 @@ export const SchemaNewValue = z.object({
     message: "El valor tiene que ser minimo 1"
   }), 
   title: z.string().min(1, {
-    message: "El valor no puede estar vacio"
+    message: "El titulo no puede estar vacio"
   }), 
   dia: z.number().min(1, {
     message: "El dia tiene que ser mayor a 0"

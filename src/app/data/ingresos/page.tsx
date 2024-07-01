@@ -1,3 +1,5 @@
+import { Error } from "@components/app/Error";
+import { AddValue } from "@components/data/AddValue";
 import { Header } from "@components/data/Header";
 import { LoadingSkeletonData } from "@components/data/LoadingSkeletonData";
 import { DisplayNetoInfo } from "@components/data/sections/DisplayNetoInfo";
@@ -16,6 +18,8 @@ export default async function Home() {
           {typeof window && data !== null? <DisplayNetoInfo /> : <LoadingSkeletonData/> }
         </DataContext>
       </main>
+      <Error/>
+      <AddValue/>
     </>
   );
 }

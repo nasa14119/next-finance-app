@@ -3,7 +3,6 @@ import { ErrorContextProvider } from "src/context/error";
 import { SideMenu } from "../../components/data/SideMenu";
 import "../globals.css"
 import "@assets/css/data.css"
-import Error from "@components/app/Error";
 import { Suspense } from "react";
 import { revalidatePath } from "next/cache";
 
@@ -41,7 +40,6 @@ export default function RootLayout({
             </div>
         </Suspense>
       </div>
-      <Error />
     </>
   );
 }
