@@ -21,6 +21,21 @@ const getSumMonth = (data: Data[]) => {
   },inicialValue)
 }
 const month = moment().format("MMMM"); 
+const DisplayResumenMonth = ({values}:{values:Data[]}) => {
+  const totals = getSumMonth(values)
+  return (
+    <span className="flex flex-col max-w-[500px] my-3 md:mx-auto">
+      <h2 className="capitalize text-xl md:text-left">{month}</h2>
+      <div className="mx-3 grid items-end [grid-template-columns:auto_auto_auto] justify-start gap-x-2">
+        <strong className="text-sm">Saldo ${totals.total}</strong>
+        <strong className="text-xs text-accent">
+          Ingresos: ${totals.ingresos}
+        </strong>
+        <strong className="text-xs text-dager">Gastos ${totals.gastos}</strong>
+      </div>
+    </span>
+  );
+}
 export function DisplaySaldo() {
   const isActive = useAllMonths()
   const data : Data[] = useDataDB(); 
@@ -30,17 +45,9 @@ export function DisplaySaldo() {
     <div>
       {
         formatData.filter(([v]) => v === month).map(([month, values]) => {
-          const totals = getSumMonth(values)
           return (
             <Fragment key={month}>
-              <span className="flex flex-col max-w-[500px] my-3 md:mx-auto">
-                <h2 className="capitalize text-xl md:text-left">{month}</h2>
-                <div className="mx-2 grid items-end [grid-template-columns:3rem_3rem_3rem]">
-                  <strong className="text-sm">${totals.total}</strong>
-                  <strong className="text-sm text-accent">${totals.ingresos}</strong>
-                  <strong className="text-sm text-dager">${totals.gastos}</strong>
-                </div>
-              </span>
+              <DisplayResumenMonth values={values}/>
               <div className="flex gap-y-2 justify-start flex-col max-w-[500px] md:mx-auto text-sm">
                 {values?.map(value => <SaldoRow value={value} key={value.id}/>)}
               </div>
@@ -54,17 +61,9 @@ export function DisplaySaldo() {
     <div>
       {
         formatData.map(([month, values]) => {
-          const totals = getSumMonth(values)
           return (
             <Fragment key={month}>
-              <span className="flex flex-col max-w-[500px] my-3 md:mx-auto">
-                <h2 className="capitalize text-xl md:text-left">{month}</h2>
-                <div className="mx-2 grid items-end [grid-template-columns:3rem_3rem_3rem]">
-                  <strong className="text-sm">${totals.total}</strong>
-                  <strong className="text-sm text-accent">${totals.ingresos}</strong>
-                  <strong className="text-sm text-dager">${totals.gastos}</strong>
-                </div>
-              </span>
+              <DisplayResumenMonth values={values}/>
               <div className="flex gap-y-2 justify-start flex-col max-w-[500px] md:mx-auto text-sm">
                 {values?.map(value => <SaldoRow value={value} key={value.id}/>)}
               </div>
