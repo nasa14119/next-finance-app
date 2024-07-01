@@ -43,6 +43,7 @@ export function useFormIngreso(){
   )
   return [Element, handleState] as [() => JSX.Element, typeof handleState]; 
 }
+
 export function useFormNewIngresoPage(){
   const [Modal, openModal] = useModal(); 
   const sendDB = usePushNewValue()

@@ -81,7 +81,7 @@ export const useDataDB = () => {
 export const useDeleteFromId = () => {
   const context = useContext(ReactDataContext); 
   if(!context) throw Error("Missing DataContext provider")
-  const deleteContext = context.getState().deleteId; 
+  const deleteContext = useStore(context).deleteId
   return deleteContext
 }
 export const usePushNewValue = () => {

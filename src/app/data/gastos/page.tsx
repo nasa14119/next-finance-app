@@ -1,4 +1,5 @@
 import { Error } from "@components/app/Error";
+import { AddValueGasto } from "@components/data/AddValueGasto";
 import { Header } from "@components/data/Header";
 import { LoadingSkeletonData } from "@components/data/LoadingSkeletonData";
 import { DisplayNetoInfo } from "@components/data/sections/DisplayNetoInfo";
@@ -11,12 +12,13 @@ export default async function Home() {
   return (
     <>
       <main className="grid grid-cols-1 my-5">
-        <Header page="Gastos"/>
+        <Header page="Ingresos"/>
         <DataContext data={data as Data[]}>
-          {data !== null ? <DisplayNetoInfo/> : <LoadingSkeletonData/> }
+          {typeof window && data !== null? <DisplayNetoInfo /> : <LoadingSkeletonData/> }
+          <AddValueGasto/>
         </DataContext>
       </main>
-      <Error />
+      <Error/>
     </>
   );
 }
