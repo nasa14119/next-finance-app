@@ -5,6 +5,7 @@ import { create, createStore, useStore } from "zustand";
 import { persist } from "zustand/middleware";
 import { pushValueToDB } from "./enpoints";
 import { useTrowError } from "@context/error";
+import { useRouter } from "next/navigation";
 
 const initialMonths = null
 
@@ -86,6 +87,7 @@ export const useDeleteFromId = () => {
 export const usePushNewValue = () => {
   const context = useContext(ReactDataContext); 
   const triggerError = useTrowError()
+  const { refresh } = useRouter(); 
   return (newValue:newData) => {
     if(!context) throw Error("Missing DataContext provider")
     const { setNewState } = context.getState(); 
@@ -93,9 +95,10 @@ export const usePushNewValue = () => {
       if(!prev) throw Error("Value can't be null"); 
       const safePrev = [...prev]
       pushValueToDB(newValue, newValue["type"])
-        .then((v) => setNewState(() => {
-          const newValue = prev.map(j => j.id === "temporal" ? v : j)
-          return prev ?? newValue 
+        .then((v) => setNewState(values => {
+          const newValue = values.map(j => j.id === "temporal" ? v : j)
+          refresh()
+          return newValue as Data[]
         }))
         .catch((e) => {
           triggerError(e);
