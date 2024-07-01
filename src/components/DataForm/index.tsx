@@ -142,7 +142,6 @@ export function FormDataGastos({handleModal, title, handleSubmit}:PropsGastos) {
       onSubmit={(e) => {
         e.preventDefault();
         const [error] = handleSubmit(ParseValues);
-        console.log(error)
         if (error !== null) {
           triggerError(error);
           return;

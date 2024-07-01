@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="es">
       <body className={popins.className}>
         <ErrorContextProvider>
-            {children}
+          {children}
         </ErrorContextProvider>
       </body>
     </html>

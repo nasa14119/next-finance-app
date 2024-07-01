@@ -3,6 +3,7 @@ import { Nav } from "@components/Nav";
 import { Data } from "@context/types";
 import { EditForm } from "./sections/EditForm";
 import { useRouter } from "next/navigation";
+import { Error } from "@components/app/Error";
 
 export function Details({data}:{data:Data}) {
   const { push } = useRouter()
@@ -19,6 +20,7 @@ export function Details({data}:{data:Data}) {
           <EditForm data={data}/>
         </div>
       </main>
+      <Error/>
     </>
   );
 }

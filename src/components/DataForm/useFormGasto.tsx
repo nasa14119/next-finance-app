@@ -19,6 +19,7 @@ const useDataCheckGastos = () => {
       dia: values.dia,
       mes: values.mes, 
       ano: values.ano,
+      type: "gasto"
     }); 
     return [null]
   }

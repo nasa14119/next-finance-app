@@ -31,7 +31,8 @@ export type newData = {
   descripcion: string, 
   dia: number, 
   mes: number, 
-  ano: number
+  ano: number, 
+  type: "ingreso" | "gasto",  
 }
 export type useAhorroMethods = {
   pushNewValue : (value: AhorroNewValue) =>  void

@@ -1,20 +1,15 @@
 "use client"
-
 import { useFormNewIngresoPage } from "@components/DataForm/useFormIngreso";
-import { useRouter } from "next/navigation";
 
 export function AddValue() {
     const [Form, handleState] = useFormNewIngresoPage()
-    const { refresh } = useRouter(); 
     const handleClick = () => {
         handleState(); 
-        // refresh(); 
     }
   return (
     <>
-        <button onClick={handleClick} className="fixed right-20 bottom-20 rounded-full bg-blend-green p-2"><PlusIcon/></button>
+        <button onClick={handleClick} className="fixed right-10 bottom-7 rounded-full bg-blend-green p-2"><PlusIcon/></button>
         <Form/>
-        {/* <Error/> */}
     </>
   )
 }

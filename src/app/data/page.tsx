@@ -1,5 +1,5 @@
 
-import Error from "@components/app/Error";
+import { Error } from "@components/app/Error";
 import { Header } from "@components/data/Header";
 import { LoadingSkeletonData } from "@components/data/LoadingSkeletonData";
 import { ResumenInfo } from "@components/data/ResumenInfo";

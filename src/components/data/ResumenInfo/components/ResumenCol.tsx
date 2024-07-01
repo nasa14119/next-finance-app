@@ -2,6 +2,7 @@
 import { Data } from "@context/types";
 
 export function ResumenCol({ data }: { data: Data[] }) {
+  if(!data) return null
   return (
     <div className="flex flex-col gap-y-2">
       {data.map(v => (

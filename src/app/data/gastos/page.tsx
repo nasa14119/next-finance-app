@@ -1,7 +1,8 @@
+import { Error } from "@components/app/Error";
 import { Header } from "@components/data/Header";
 import { LoadingSkeletonData } from "@components/data/LoadingSkeletonData";
 import { DisplayNetoInfo } from "@components/data/sections/DisplayNetoInfo";
-import { DataContext, useDataDB } from "@context/data";
+import { DataContext } from "@context/data";
 import { Data } from "@context/types";
 import {  getGastos } from "src/context/data/enpoints";
 
@@ -15,6 +16,7 @@ export default async function Home() {
           {data !== null ? <DisplayNetoInfo/> : <LoadingSkeletonData/> }
         </DataContext>
       </main>
+      <Error />
     </>
   );
 }

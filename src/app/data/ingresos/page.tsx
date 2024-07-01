@@ -16,10 +16,10 @@ export default async function Home() {
         <Header page="Ingresos"/>
         <DataContext data={data as Data[]}>
           {typeof window && data !== null? <DisplayNetoInfo /> : <LoadingSkeletonData/> }
+          <AddValue/>
         </DataContext>
       </main>
       <Error/>
-      <AddValue/>
     </>
   );
 }

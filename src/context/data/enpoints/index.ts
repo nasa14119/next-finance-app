@@ -1,4 +1,4 @@
-import { Data, ResponseApiData } from "@context/types"
+import { Data, ResponseApiData, newData } from "@context/types"
 
 export const getAhorros = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_DB}/ingresos`, {
@@ -36,6 +36,25 @@ export const deleteIdDB = async (id:string, type: "ingreso" | "gasto") => {
         },
         method: "DELETE",
         body: JSON.stringify({ id }),
+      }
+    );
+    return await res.json() as Data[]
+  } catch (error) {
+    throw "Something went wrong in the request"
+  }
+}
+export const pushValueToDB = async (v: newData, type:newData["type"]) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_DB}/${
+        type === "ingreso" ? "ingresos" : "gastos"
+      }`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(v),
       }
     );
     return await res.json() as Data[]

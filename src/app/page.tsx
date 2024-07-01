@@ -1,8 +1,7 @@
 import { Nav } from "../components/Nav";
 import { InformationSection } from "@home/sections/Information";
-import Error from "@components/app/Error";
+import {Error} from "@components/app/Error";
 import MainDisplay from "@components/app/sections/MainDisplay";
-import LoadingPageSkeleton from "@components/app/LoadingPageSkeleton";
 import { AppContext } from "@context/app";
 
 export default async function Home() {

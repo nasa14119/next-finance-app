@@ -4,6 +4,8 @@ import React from 'react'
 import { FormDataGastos } from '.';
 import { ReturnHandleSumit, SchemaNewValue } from './types';
 import { useAhorroMethods } from 'src/context/app';
+import { usePushNewValue } from '@context/data';
+import { newData } from '@context/types';
 
 const useDataCheckIngresos = () => {
   const sendInfo = useAhorroMethods()
@@ -18,7 +20,7 @@ const useDataCheckIngresos = () => {
       descripcion: values.title, 
       dia: values.dia, 
       mes: values.mes, 
-      ano:values.ano
+      ano:values.ano, 
     })
     return [null]
   }
@@ -43,6 +45,7 @@ export function useFormIngreso(){
 }
 export function useFormNewIngresoPage(){
   const [Modal, openModal] = useModal(); 
+  const sendDB = usePushNewValue()
   const handleState = (value ?: boolean) => {
     if(typeof value === "undefined"){
       openModal(); 
@@ -51,12 +54,25 @@ export function useFormNewIngresoPage(){
     openModal(value); 
   }
   const handleSubmit:ReturnHandleSumit = (v) => {
-    const {success, error} = SchemaNewValue.safeParse(v)
+    const {success, error, data} = SchemaNewValue.safeParse(v)
     if(!success){
       console.error(error.errors);
       return [error.errors[0].message]
     }
-    return ["Error"]
+    const newData:newData = {
+      valor: data.value, 
+      descripcion: data.title, 
+      dia: data.dia, 
+      mes: data.mes,
+      ano: data.ano, 
+      type: "ingreso"
+    }
+    try {
+      sendDB(newData)
+      return [null]
+    } catch (error) {
+      return ["Error sending to DB"]
+    }
   }; 
   const Element = () => (
     <Modal>

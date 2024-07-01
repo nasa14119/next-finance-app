@@ -1,8 +1,10 @@
 "use client"
-import { Data } from "@context/types";
+import { Data, newData } from "@context/types";
 import { ReactNode, createContext, useContext, useRef } from "react";
 import { create, createStore, useStore } from "zustand";
 import { persist } from "zustand/middleware";
+import { pushValueToDB } from "./enpoints";
+import { useTrowError } from "@context/error";
 
 const initialMonths = null
 
@@ -29,9 +31,11 @@ export const useToggleMonths =  () => {
   const values = usePersistContext().toogleMonth
   return values
 }
+type SetStateFunction = (prev: Data[]) => Data[]
 type DataStore = {
   data: Data[] | null, 
-  deleteId: (v:Data["id"]) => void 
+  deleteId: (v:Data["id"]) => void, 
+  setNewState: (handleState: SetStateFunction) => void
 }
 type ReactStore = ReturnType<typeof createDataStore>
 const ReactDataContext = createContext<ReactStore | null>(null)
@@ -48,6 +52,11 @@ const createDataStore = (initProps: Data[]) => {
       if (!state.some((v) => v.id === id)) throw Error("Id is not found");
       const filter = state.filter((v) => v.id !== id);
       set({ data: [...filter] });
+    },
+    setNewState: (handleState) => {
+      const state = handleState(get().data as Data[]); 
+      if(!state) return
+      set({data:[...state]})
     },
   }));
 }
@@ -73,4 +82,27 @@ export const useDeleteFromId = () => {
   if(!context) throw Error("Missing DataContext provider")
   const deleteContext = context.getState().deleteId; 
   return deleteContext
+}
+export const usePushNewValue = () => {
+  const context = useContext(ReactDataContext); 
+  const triggerError = useTrowError()
+  return (newValue:newData) => {
+    if(!context) throw Error("Missing DataContext provider")
+    const { setNewState } = context.getState(); 
+    const handleState : SetStateFunction = (prev) => {
+      if(!prev) throw Error("Value can't be null"); 
+      const safePrev = [...prev]
+      pushValueToDB(newValue, newValue["type"])
+        .then((v) => setNewState(() => {
+          const newValue = prev.map(j => j.id === "temporal" ? v : j)
+          return prev ?? newValue 
+        }))
+        .catch((e) => {
+          triggerError(e);
+          setNewState(() => safePrev);
+        });
+      return [...prev, {...newValue, id: "temporal"}]
+    }
+    setNewState(handleState)
+  }
 }
