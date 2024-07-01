@@ -5,6 +5,7 @@ import "../globals.css"
 import "@assets/css/data.css"
 import Error from "@components/app/Error";
 import { Suspense } from "react";
+import { revalidatePath } from "next/cache";
 
 export const metadata: Metadata = {
   title: "Finanzas App",
@@ -29,6 +30,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  revalidatePath("/data", "layout")
   return (
     <>
       <div className="data-layout">

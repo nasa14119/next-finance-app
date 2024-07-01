@@ -39,13 +39,17 @@ const createDataStore = (initProps: Data[]) => {
   const DEFAULT_VALUES = {
     data:[]
   }
-  return createStore<DataStore>()((set, get) => ({...DEFAULT_VALUES, data: [...initProps], deleteId : (id:Data["id"]) => {
-    const state = get().data
-    if(!state) throw Error("No data available")
-    if(!state.some(v => v.id === id)) throw Error("Id is not found")
-    const filter = state.filter(v => v.id !== id)
-    set({data: [...filter]})
-  }}))
+  return createStore<DataStore>()((set, get) => ({
+    ...DEFAULT_VALUES,
+    data: [...initProps],
+    deleteId: (id: Data["id"]) => {
+      const state = get().data;
+      if (!state) throw Error("No data available");
+      if (!state.some((v) => v.id === id)) throw Error("Id is not found");
+      const filter = state.filter((v) => v.id !== id);
+      set({ data: [...filter] });
+    },
+  }));
 }
 type Props = {
   children : ReactNode, 

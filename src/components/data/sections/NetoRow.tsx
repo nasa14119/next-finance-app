@@ -19,7 +19,7 @@ export function NetoRow({
         {value.dia}/{value.mes}/{value.ano}
       </span>
       <span className="text-right">${value.valor}</span>
-      <DeleteBtn id={value.id}/>
+      <DeleteBtn id={value.id} type={value.type}/>
     </div>
   );
 }

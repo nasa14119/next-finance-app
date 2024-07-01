@@ -1,11 +1,19 @@
-"use client"
 import { useDeleteFromId } from "@context/data";
+import { deleteIdDB } from "@context/data/enpoints";
+import { useTrowError } from "@context/error";
+import { Data } from "@context/types";
+import { useRouter } from "next/navigation";
 
-export function DeleteBtn({id}:{id: string}) {
+export function DeleteBtn({id, type}:{id: string, type: Data["type"]}) {
+    const triggerError = useTrowError(); 
     const deleteItem = useDeleteFromId();
-    const handleClick = () =>{
-        deleteItem(id); 
-    }
+    const { refresh } = useRouter()
+    const handleClick = () => {
+      deleteItem(id);
+      deleteIdDB(id, type)
+        .then(() => refresh())
+        .catch((e) => triggerError(e));
+    };
   return (
     <span
       className="size-8 p-2 rounded-lg bg-dager absolute right-2 top-1 group-hover:block hidden z-50"
