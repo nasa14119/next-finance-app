@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <>
       <main className="grid grid-cols-1 my-5">
-        <Header page="Ingresos"/>
+        <Header page="Gastos"/>
         <DataContext data={data as Data[]}>
           {typeof window && data !== null? <DisplayNetoInfo /> : <LoadingSkeletonData/> }
           <AddValueGasto/>
