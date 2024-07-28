@@ -8,7 +8,14 @@ export type ResponseApiData = {
   isPay: boolean, 
   time_delay: number,
   estado: number,
-  type: "ingreso" | "gasto",  
+  format_date: string
+}
+export type IngresosFijosContext = {
+  month_state: number, 
+  month_budget: number, 
+  last_payment: string, 
+  time_nextpaymente: number, 
+  time_delay: number, 
 }
 export type ResponseUseIngresosFijos = [
   null | ResponseApiData, 
@@ -54,8 +61,6 @@ export type AhorroNewValue = {
 }
 
 export type ContextApp = {
-  ingresos_fijos: ResponseApiData | null, 
-  setIngresosMethods: ResponseUseIngresosFijos[1], 
   ahorro: Data[], 
   setAhorroMethods: useAhorroMethods, 
   gastos: Data[], 

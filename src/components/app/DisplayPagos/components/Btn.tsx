@@ -1,9 +1,6 @@
-import { usePaymentMethods } from "src/context/endpoints/ingresos-fijos";
-
 export function BtnUndoPagoRecibido() {
-  const funcs = usePaymentMethods(); 
   return (
-    <button className="rounded-3xl bg-dager w-7 relative group grid place-content-center" onClick={funcs.PaymentUndo}>
+    <button className="rounded-3xl bg-dager w-7 relative group grid place-content-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -23,21 +20,20 @@ export function BtnUndoPagoRecibido() {
   );
 }
 export function BtnPagoRecibidoWithDelay() {
-  const funcs = usePaymentMethods(); 
   return (
     <div className="absolute w-40">
-      <button className="rounded-3xl bg-primary px-2 w-full invisible group-hover:visible" onClick={funcs?.PaymentMade}>
-        {funcs?.loading ? "Loading..." :"Dinero Recibido"}
+      <button className="rounded-3xl bg-primary px-2 w-full invisible group-hover:visible">
+        Dinero Recibido
+        {/* {funcs?.loading ? "Loading..." :"Dinero Recibido"} */}
       </button>
     </div>
   );
 }
 export function BtnPagoRecibido() {
-  const funcs = usePaymentMethods(); 
   return (
     <div className="flex justify-end gap-x-2 relative z-50">
       <BtnUndoPagoRecibido/>
-      <button className="rounded-3xl bg-primary px-2" onClick={funcs.PaymentMade}>Dinero Recibido</button>
+      <button className="rounded-3xl bg-primary px-2">Dinero Recibido</button>
     </div>
   );
 }
