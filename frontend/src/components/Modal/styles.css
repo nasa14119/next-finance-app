@@ -1,0 +1,64 @@
+@keyframes modal-in {
+  from{
+    transform: scale(0.5);
+  }
+  to{
+    transform: scale(1);
+  }
+}
+@keyframes modal-out {
+  to{
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+@keyframes modal-in-parent {
+  from{
+    display: block;
+  }
+  to{
+    opacity: 1;
+  }
+}
+@keyframes modal-out-parent {
+  from{
+    display: block;
+  }
+  to{
+    opacity: 0;
+    display: none;
+  }
+}
+
+/* Modal-Parent animation */
+.modal-parent[data-state="true"] {
+  display: block;
+}
+.modal-parent[data-state="transition-in"] {
+  display: block;
+  animation: modal-in-parent ease forwards 400ms;
+}
+.modal-parent[data-state="transition-out"] {
+  display: block;
+  animation: modal-out-parent ease forwards 500ms;
+}
+.modal-parent[data-state="false"] {
+  display: none;
+}
+
+/* Modal Animations */
+.modal[data-state="true"]{
+  transform: scale(1);
+}
+.modal[data-state="transition-in"]{
+  animation: ease forwards 500ms modal-in;
+}
+.modal[data-state="transition-out"]{
+  animation: ease forwards 500ms modal-out;
+}
+.modal[data-state="false"]{
+  transform: scale(0.5);
+}
+.modal {
+  transform: scale(1);
+}

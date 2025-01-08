@@ -1,0 +1,50 @@
+
+@keyframes fade-in-nav {
+  from {
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+@keyframes fade-out-nav {
+  to{
+    opacity: 0;
+    display: none; 
+  }
+}
+#toggle_nav{
+  @apply  rounded-md z-50 fixed right-4 top-4 w-11 h-10 grid place-items-center bg-blend-green; 
+}
+ul.mobile{
+  @apply flex flex-col h-24 w-[50dvw] z-50 fixed right-4 top-16 bg-blend-green justify-center items-center rounded-md p-5; 
+}
+ul.mobile[data-state="true"]{
+  animation: fade-in-nav 250ms ease-in forwards; 
+}
+ul.mobile[data-state="false"]{
+  animation: fade-out-nav 250ms ease-out forwards; 
+}
+.toogle-span{
+  transition: all 50ms linear; 
+  @apply block w-5 h-[2px] bg-white px-3 rounded-md absolute top-5; 
+}
+.toogle-span::before{
+  transition: all 200ms ease-in; 
+  content: "";
+  @apply block w-full h-[2px] bg-white px-3 rounded-md absolute left-0 -top-2; 
+}
+.toogle-span::after{
+  transition: all 200ms ease-in; 
+  content: "";
+  @apply block w-full h-[2px] bg-white px-3 rounded-md absolute right-0 top-2; 
+}
+.toogle-span[data-state="true"]{
+  background: transparent;
+}
+.toogle-span[data-state="true"]::before{
+  @apply block w-full h-[2px] bg-white px-3 rounded-md rotate-45 absolute right-0 top-0; 
+}
+.toogle-span[data-state="true"]::after{
+  @apply block w-full h-[2px] bg-white px-3 rounded-md -rotate-45 absolute right-0 top-0; 
+}
