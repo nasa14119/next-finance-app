@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { JSX, useCallback, useEffect, useRef, useState } from "react";
 import "./styles.css"
 import { CloseIcon } from "@assets/icons";
 export function Modal({

@@ -1,4 +1,4 @@
-import { db } from "../db/index"; 
+import { db } from "../db"; 
 import { getIngresosFijos } from "./ingresos_fijos";
 type IngresosMes = {
   dinero_actualmente: number, 

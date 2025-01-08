@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 import "./styles.css"
-import { getDay, getFormatedNumber, getMonth, getYear, removeNonNumeric } from 'src/utils';
 import { useDataCheck } from './useDataCheck';
 import { PropsNewValue } from './useFormGasto';
-import { useTrowError } from 'src/context/error';
 import { ReturnHandleSumit } from './types';
+import { useTrowError } from '../../context/error';
+import {
+  getDay,
+  getFormatedNumber,
+  getMonth,
+  getYear,
+  removeNonNumeric,
+} from "../../utils";
 const getToday = () => ({dia: getDay(), mes: getMonth(), ano: getYear()})
 type Props = {
   type: string, 

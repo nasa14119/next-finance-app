@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { ErrorContextProvider } from "src/context/error";
+import { ErrorContextProvider } from "../context/error";
 
 const popins = Poppins({
   weight: "400",
